@@ -10,7 +10,7 @@ export const Navigation = () => {
   return (
     <nav className="bg-neutral-600 relative px-8 md:px-16 lg:px-20 h-16 md:h-20 flex items-center justify-between w-full">
       <Link to="/" className="text-xl md:text-2xl font-bold text-neutral-100">
-        Colegio de la Hausteca
+        Colegio de Arquitectos
       </Link>
       {window.innerWidth <= 1180 ? (
         <div
@@ -31,7 +31,7 @@ export const Navigation = () => {
             <Link to="/">Reportes de problemas</Link>
           </li>
           <li className="nav-link">
-            <Link to="/">Usuario</Link>
+            <Link to="/">Iniciar sesión</Link>
           </li>
           <li className="nav-link">
             <Link to="/">Cerrar sesión</Link>
