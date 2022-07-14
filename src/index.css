@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply min-h-screen;
+    }
+
+    .nav-link {
+        @apply mx-8 font-medium text-neutral-100 hover:text-neutral-400 transition-all duration-300 ease-in;
+    }
+}

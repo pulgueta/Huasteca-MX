@@ -1,11 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-
-import { Landing } from "./views";
+import { AppRouter } from "./routes/AppRouter";
 
 export const App = () => {
-  return (
-    <Routes>
-      <Route index path="/" element={<Landing />} />
-    </Routes>
-  );
+  return <AppRouter />;
 };
