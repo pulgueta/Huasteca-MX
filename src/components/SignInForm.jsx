@@ -4,41 +4,49 @@ import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
-export const SignInForm = ({email, password}) => {
+export const SignInForm = ({ email, password }) => {
   const {
-    login,
+    register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = data => console.log(data)
-
-  console.log(watch("ex"));
+  const onSubmit = (data) => console.log(data);
 
   return (
-    <div className="w-80 md:w-96 h-[450px] bg-neutral-100 mt-10 shadow-md rounded-lg p-6">
+    <div className="w-80 md:w-96 h-content bg-neutral-100 mt-10 shadow-md rounded-lg p-6">
       <div className="flex flex-col items-center w-full justify-center">
-        <FaUser className="text-3xl"/>
+        <FaUser className="text-3xl" />
         <h1 className="text-xl font-bold text-center mt-2">Iniciar sesión</h1>
       </div>
-      <form className="mt-6">
+      <form
+        className="mt-6"
+        onSubmit={handleSubmit((data) => console.log(data))}
+      >
         <div>
           <label htmlFor="correo">Correo electrónico</label>
           <input
+            {...register("mail", { required: "¡Este campo es obligatorio!" })}
             type="text"
             placeholder="correo@electronico.com"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
+          {errors.mail && (
+            <p className="mt-2 text-red-500">{errors.mail?.message}</p>
+          )}
         </div>
-        <div className="mt-4">
+        <div className="mt-2">
           <label htmlFor="contrasena">Contraseña</label>
           <input
-            
+            {...register("pass", { required: "¡Este campo es obligatorio!" })}
             type="password"
             placeholder="**********"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
+          {errors.pass && (
+            <p className="mt-2 text-red-500">{errors.pass?.message}</p>
+          )}
         </div>
         <div className="w-full flex flex-col items-center justify-center mt-5">
           <button
