@@ -62,7 +62,7 @@ export const Navigation = () => {
                 ease: "easeIn",
               },
             }}
-            className="absolute bg-neutral-700 left-0 top-16 md:top-20 w-full h-72 p-6 flex flex-col justify-center"
+            className="absolute bg-neutral-700 left-0 top-16 md:top-20 w-full h-72 p-6 flex flex-col justify-center z-10"
           >
             <ul>
               <li className="py-3 text-center">
