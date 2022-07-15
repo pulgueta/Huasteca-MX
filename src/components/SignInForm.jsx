@@ -4,15 +4,12 @@ import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
-export const SignInForm = ({ email, password }) => {
+export const SignInForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = (data) => console.log(data);
 
   return (
     <div className="w-80 md:w-96 h-content bg-neutral-100 mt-10 shadow-md rounded-lg p-6">
