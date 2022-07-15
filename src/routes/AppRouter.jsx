@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import { Footer, Navigation } from "../components";
-import { Landing, Registro, Signin, ArticleDetails } from "../views";
+import { Landing, SignUp, SignIn, ArticleDetails } from "../views";
 
 export const AppRouter = () => {
   return (
@@ -11,9 +11,9 @@ export const AppRouter = () => {
       <Routes>
         <Route index path="/" element={<Landing />} />
 
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/registro" element={<Registro />} />
-        <Route path="/articleDetails" element={<ArticleDetails />} />
+        <Route path="/inicio-sesion" element={<SignIn />} />
+        <Route path="/registro" element={<SignUp />} />
+        <Route path="/article-details" element={<ArticleDetails />} />
       </Routes>
 
       <Footer />
