@@ -4,13 +4,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
+import Logo from '../static/logo.jpg'
+
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-neutral-600 relative px-8 md:px-16 lg:px-20 h-16 md:h-20 flex items-center justify-between w-full">
-      <Link to="/" className="text-xl md:text-2xl font-bold text-neutral-100">
+    <nav className="bg-neutral-700 relative px-8 md:px-16 lg:px-20 h-16 md:h-20 flex items-center justify-between w-full">
+      {/* <Link to="/" className="text-xl md:text-2xl font-bold text-neutral-100">
         Colegio de Arquitectos
+      </Link> */}
+      <Link to="/">
+        <img src={Logo} alt="Logo" className="w-56" />
       </Link>
       {window.innerWidth <= 1180 ? (
         <div

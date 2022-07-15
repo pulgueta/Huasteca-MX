@@ -17,9 +17,9 @@ export const SignInForm = () => {
   console.log(watch("ex"));
 
   return (
-    <div className="w-80 md:w-96 h-[425px] bg-neutral-100 mt-10 shadow-md rounded-lg p-6">
+    <div className="w-80 md:w-96 h-[450px] bg-neutral-100 mt-10 shadow-md rounded-lg p-6">
       <div className="flex flex-col items-center w-full justify-center">
-        <FaUser />
+        <FaUser className="text-3xl"/>
         <h1 className="text-xl font-bold text-center mt-2">Iniciar sesión</h1>
       </div>
       <form className="mt-6">
