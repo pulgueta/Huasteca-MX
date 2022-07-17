@@ -16,4 +16,8 @@
     .mobile-link {
         @apply text-sm md:text-lg text-huasteca-orange font-medium hover:text-neutral-100 duration-200 transition-all flex items-center;
     }
+
+    .flexlab {
+        @apply flex items-center;
+    }
 }
