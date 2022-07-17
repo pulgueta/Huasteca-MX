@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FaBook, FaCalendarAlt, FaUsers } from 'react-icons/fa'
-import { Carousel } from "react-responsive-carousel";
 import { useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 import Nani from "../../static/nani.jpg";
 import Nani2 from "../../static/nani2.jpg";
@@ -13,7 +13,7 @@ export const ArticleDetails = () => {
 
     const { id } = useParams();
 
-    const [article, setDrticle] = useState({})
+    const [article, setArticle] = useState({})
 
     useEffect(() => {
         const getData = () => {
@@ -29,7 +29,7 @@ export const ArticleDetails = () => {
                     Nani5
                 ]
             }
-            setDrticle(obj)
+            setArticle(obj)
         }
         getData()
     }, [id])
@@ -64,19 +64,19 @@ export const ArticleDetails = () => {
                         </p>
                     </div>
                 </div>
-                <h1 className="text-white text-2xl my-5 font-medium md:text-4xl md:my-10">
+                <h1 className="text-white text-2xl mt-5 font-medium md:text-4xl md:mt-10">
                     Galeria del articulo
                 </h1>
-                <div className='p-8'>
-                    <Carousel className='bg-neutral-400 flex flex-col text-center w-72 md:w-[700px] lg:w-[900px]' autoPlay={true} emulateTouch={true} infiniteLoop={true}>
-                        {article.gallery && article.gallery.map((img, i) => {
+                <div className='w-screen h-full pb-2 m-5 overflow-x-hidden md:py-0'>
+                    <motion.div className='flex cursor-grab' drag={'x'} dragConstraints={{ right: 0, left: -1594 }}>
+                        {article.gallery && article.gallery.map((item, i) => {
                             return (
-                                <div key={i}>
-                                    <img src={img} alt="Nanisita" />
+                                <div key={i} className='h-[15rem] min-w-[25rem] p-4 md:h-96 md:min-w-[30rem] lg:min-w-[45rem]'>
+                                    <img src={item} alt="tour" className='h-full w-full pointer-events-none object-cover rounded-md' />
                                 </div>
                             )
                         })}
-                    </Carousel>
+                    </motion.div>
                 </div>
             </div>
         </>
