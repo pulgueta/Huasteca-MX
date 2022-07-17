@@ -25,7 +25,7 @@ export const SignInForm = () => {
           <label htmlFor="correo">Correo electrónico</label>
           <input
             {...register("mail", { required: "¡Este campo es obligatorio!" })}
-            type="text"
+            type="email"
             placeholder="correo@electronico.com"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
@@ -52,11 +52,11 @@ export const SignInForm = () => {
           >
             Iniciar sesión
           </button>
-          <Link to="/olvide-contrasena" className="underline my-2">
+          <Link to="/restaurar" className="underline my-2">
             &iquest;Olvidaste tu contrase&ntilde;a&#x3F;
           </Link>
           <Link
-            to="/register"
+            to="/registro"
             className="bg-huasteca-brown mt-2 text-center hover:bg-orange-900 transition-all duration-300 py-2 text-neutral-100 font-semibold w-1/2 rounded-md"
           >
             Crear cuenta

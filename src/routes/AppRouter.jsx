@@ -11,12 +11,12 @@ export const AppRouter = () => {
       <Routes>
         <Route index path="/" element={<Landing />} />
 
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/articles" element={<Article />} />
-        <Route path="/articles/:id" element={<ArticleDetails />} />
-        <Route path="/cultural-tour" element={<CulturalTour />} />
-        <Route path="/cultural-tour/:id" element={<CulturalTourDetails />} />
+        <Route path="/inicio-sesion" element={<SignIn />} />
+        <Route path="/registro" element={<SignUp />} />
+        <Route path="/articulos" element={<Article />} />
+        <Route path="/articulos/:id" element={<ArticleDetails />} />
+        <Route path="/recorrido-cultural" element={<CulturalTour />} />
+        <Route path="/recorrido-cultural/:id" element={<CulturalTourDetails />} />
       </Routes>
 
       <Footer />
