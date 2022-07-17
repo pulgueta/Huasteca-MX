@@ -1,4 +1,5 @@
 export * from "./Landing";
 export * from "./SignUp";
-export * from "./SignIn";
-export * from "./ArticleDetails";
+export * from "./Signin";
+export * from "./articles/ArticleDetails";
+export * from "./articles/Article";
