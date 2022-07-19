@@ -17,10 +17,10 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-huasteca-gray relative px-8 md:px-16 lg:px-20 h-16 md:h-20 flex items-center justify-between w-full">
+    <nav className="bg-huasteca-gray relative px-6 md:px-16 lg:px-4 xl:px-12 h-16 md:h-20 flex items-center justify-between w-full">
       <Link to="/" className="flex items-center">
         <img src={Logo} alt="Logo" className="w-12" />
-        <p className="hidden md:block md:w-60 lg:w-72 mx-4 text-sm text-neutral-100 font-semibold">
+        <p className="hidden md:block md:w-60 xl:w-72 mx-4 text-sm text-neutral-100 font-semibold">
           Colegio de Arquitectos e Ingenieros Civiles de la Huasteca A.C.
         </p>
       </Link>
@@ -35,35 +35,36 @@ export const Navigation = () => {
         <ul className="flex w-full items-center justify-between">
           <div className="flex">
             <li className="nav-link">
-              <Link to="/" className="flex items-center">
-                <FaLaptop className="mr-1" />
+              <Link to="/proyectos" className="flex items-center">
+                <FaLaptop className="mr-1 xl:hidden 2xl:block" />
                 Proyectos/Obras
               </Link>
             </li>
             <li className="nav-link">
-              <Link to="/" className="flex items-center">
-                <FaMapMarkerAlt className="mr-1" />
+              <Link to="/recorridos-culturales" className="flex items-center">
+                <FaMapMarkerAlt className="mr-1 xl:hidden 2xl:block" />
                 Recorridos culturales
               </Link>
             </li>
             <li className="nav-link">
-              <Link to="/" className="flex items-center">
-                <BsFillMegaphoneFill className="mr-1" /> Reportes ciudadanos
+              <Link to="/reportes-ciudadanos" className="flex items-center">
+                <BsFillMegaphoneFill className="mr-1 xl:hidden 2xl:block" />{" "}
+                Reportes ciudadanos
               </Link>
             </li>
             <li className="nav-link">
-              <Link to="/">Acerca de CAIH</Link>
+              <Link to="/acerca-de">Acerca de CAIH</Link>
             </li>
           </div>
           <div className="flex items-center">
             <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
-              <Link to="/sign-in" className="flex items-center">
+              <Link to="/inicio-sesion" className="flex items-center">
                 <FaSignInAlt className="mr-1" />
                 Iniciar sesión
               </Link>
             </li>
             <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
-              <Link to="/sign-up" className="flex items-center">
+              <Link to="/registro" className="flex items-center">
                 <FaSignInAlt className="mr-1" />
                 Registrar
               </Link>
@@ -112,7 +113,17 @@ export const Navigation = () => {
               <li className="py-3 text-center">
                 <Link
                   className="mobile-link"
-                  to="/"
+                  to="/proyectos"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <FaLaptop className="mr-1" />
+                  Proyectos/Obras
+                </Link>
+              </li>
+              <li className="py-3 text-center">
+                <Link
+                  className="mobile-link"
+                  to="/recorridos-culturales"
                   onClick={() => setIsOpen(!isOpen)}
                 >
                   <FaMapMarkerAlt className="mr-1" />
@@ -122,7 +133,7 @@ export const Navigation = () => {
               <li className="py-3 text-center">
                 <Link
                   className="mobile-link"
-                  to="/"
+                  to="/reportes-ciudadanos"
                   onClick={() => setIsOpen(!isOpen)}
                 >
                   <BsFillMegaphoneFill className="mr-1" />
@@ -132,7 +143,7 @@ export const Navigation = () => {
               <li className="py-3 text-center">
                 <Link
                   className="mobile-link"
-                  to="/"
+                  to="/acerca-de"
                   onClick={() => setIsOpen(!isOpen)}
                 >
                   Acerca de CAIH
@@ -140,13 +151,21 @@ export const Navigation = () => {
               </li>
 
               <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md mt-4 mb-8">
-                <Link to="/sign-in" className="flex items-center">
+                <Link
+                  to="/inicio-sesion"
+                  className="flex items-center"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
                   <FaSignInAlt className="mr-1" />
                   Iniciar sesión
                 </Link>
               </li>
               <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
-                <Link to="/sign-up" className="flex items-center">
+                <Link
+                  to="/registro"
+                  className="flex items-center"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
                   <FaSignInAlt className="mr-1" />
                   Registrar
                 </Link>
