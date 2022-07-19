@@ -79,7 +79,7 @@ export const Article = () => {
                                     </p>
                                 </div>
                                 <div className='flex justify-end py-2'>
-                                    <button className='bg-huasteca-orange rounded-md p-2 mt-2 text-sm font-semibold md:text-lg' onClick={() => navigate(`/articles/${item.id}`)}>
+                                    <button className='bg-huasteca-orange rounded-md p-2 mt-2 text-sm font-semibold md:text-lg' onClick={() => navigate(`/articulos/${item.id}`)}>
                                         Saber más
                                     </button>
                                 </div>
