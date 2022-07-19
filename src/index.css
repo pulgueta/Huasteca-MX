@@ -6,11 +6,11 @@
 
 @layer base {
     body {
-        @apply min-h-screen font-[Raleway];
+        @apply min-h-screen font-[Raleway] overflow-x-hidden;
     }
 
     .nav-link {
-        @apply mx-4 font-medium text-huasteca-orange hover:text-neutral-100 transition-all duration-200 ease-in;
+        @apply mx-3 font-medium text-sm 2xl:text-base text-huasteca-orange hover:text-neutral-100 transition-all duration-200 ease-in;
     }
 
     .mobile-link {
