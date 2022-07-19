@@ -1,6 +1,6 @@
 export * from "./Landing";
 export * from "./SignUp";
-export * from "./Signin";
+export * from "./SignIn";
 export * from "./articles/ArticleDetails";
 export * from "./articles/Article";
 export * from "./culturalTour/CulturalTour"
