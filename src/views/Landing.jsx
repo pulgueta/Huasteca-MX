@@ -13,7 +13,7 @@ export const Landing = () => {
 
   return (
     <div className="min-h-screen bg-neutral-400">
-      <div className="h-[540px] lg:h-[820px] bg-red-400 object-cover">
+      <div className="h-[540px] lg:h-[820px] bg-neutral-400 object-cover">
         <img
           src={Huejutla}
           alt="Huejutla"
