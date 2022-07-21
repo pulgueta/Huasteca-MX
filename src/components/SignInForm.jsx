@@ -17,7 +17,7 @@ export const SignInForm = () => {
   } = useForm();
 
   const handleLogin = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     handleSubmit((e) => signIn(e.mail, e.pass));
     dispatch(authCheck());
   };
