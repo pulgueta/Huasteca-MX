@@ -20,8 +20,8 @@ export const Navigation = () => {
     <nav className="bg-huasteca-gray relative px-6 md:px-16 lg:px-4 xl:px-12 h-16 md:h-20 flex items-center justify-between w-full">
       <Link to="/" className="flex items-center">
         <img src={Logo} alt="Logo" className="w-12" />
-        <p className="hidden md:block md:w-60 xl:w-72 mx-4 text-sm text-neutral-100 font-semibold">
-          Colegio de Arquitectos e Ingenieros Civiles de la Huasteca A.C.
+        <p className="hidden md:block md:w-60 xl:w-72 mx-4 text-base text-neutral-100 font-semibold">
+          Colegio de Arquitectos e Ingenieros XDD
         </p>
       </Link>
       {window.innerWidth <= 1300 ? (
@@ -76,14 +76,9 @@ export const Navigation = () => {
         {isOpen && (
           <motion.div
             initial={{
-              opacity: 0,
-              x: -200,
-              transition: {
-                ease: "easeOut",
-              },
+              x: "-100vw",
             }}
             animate={{
-              opacity: 1,
               x: 0,
               transition: {
                 ease: "easeInOut",
@@ -91,8 +86,7 @@ export const Navigation = () => {
               },
             }}
             exit={{
-              opacity: 0,
-              x: -200,
+              x: "-100vw",
               transition: {
                 ease: "easeIn",
               },
