@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Footer, Navigation } from "../components";
-import { Landing, SignUp, SignIn, Article, ArticleDetails, CulturalTour, CulturalTourDetails, About } from "../views";
+import { Landing, SignUp, SignIn, Article, ArticleDetails, CulturalTour, CityReport, CulturalTourDetails, About } from "../views";
 
 export const AppRouter = () => {
   return (
@@ -17,6 +17,7 @@ export const AppRouter = () => {
         <Route path="/proyectos/:id" element={<ArticleDetails />} />
         <Route path="/recorridos-culturales" element={<CulturalTour />} />
         <Route path="/recorridos-culturales/:id" element={<CulturalTourDetails />} />
+        <Route path="/reportes-ciudadanos" element={<CityReport />} />
         <Route path="/acerca-de" element={<About />} />
 
         <Route path="*" element={<Navigate to="/" />} />
