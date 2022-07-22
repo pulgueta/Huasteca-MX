@@ -21,7 +21,7 @@ export const Navigation = () => {
       <Link to="/" className="flex items-center">
         <img src={Logo} alt="Logo" className="w-12" />
         <p className="hidden md:block md:w-60 xl:w-72 mx-4 text-base text-neutral-100 font-semibold">
-          Colegio de Arquitectos e Ingenieros
+          Colegio de Arquitectos e Ingenieros TestMerge
         </p>
       </Link>
       {window.innerWidth <= 1300 ? (
