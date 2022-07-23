@@ -1,25 +1,16 @@
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
+// import { useDispatch } from "react-redux";
 
 import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import { signIn } from "../utils/firebase/signIn";
-import { authCheck } from "../redux/auth";
+// import { signIn } from "../utils/firebase/signIn";
+// import { authCheck } from "../redux/auth";
 
 export const SignInForm = () => {
-  const dispatch = useDispatch();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // const dispatch = useDispatch();
 
   const handleLogin = (e) => {
-    e.preventDefault(); 
-    handleSubmit((e) => signIn(e.mail, e.pass));
-    dispatch(authCheck());
+    e.preventDefault();
   };
 
   return (
@@ -32,26 +23,18 @@ export const SignInForm = () => {
         <div>
           <label htmlFor="correo">Correo electrónico</label>
           <input
-            {...register("mail", { required: "¡Este campo es obligatorio!" })}
             type="email"
             placeholder="correo@electronico.com"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
-          {errors.mail && (
-            <p className="mt-2 text-red-500">{errors.mail?.message}</p>
-          )}
         </div>
         <div className="mt-2">
           <label htmlFor="contrasena">Contraseña</label>
           <input
-            {...register("pass", { required: "¡Este campo es obligatorio!" })}
             type="password"
             placeholder="**********"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
-          {errors.pass && (
-            <p className="mt-2 text-red-500">{errors.pass?.message}</p>
-          )}
         </div>
         <div className="w-full flex flex-col items-center justify-center mt-5">
           <button
