@@ -1,13 +1,13 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import { signIn } from "../utils/firebase/signIn";
-import { authCheck } from "../redux/auth";
+// import { signIn } from "../utils/firebase/signIn";
+// import { authCheck } from "../redux/auth";
 
 export const SignInForm = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleLogin = (e) => {
     e.preventDefault();
