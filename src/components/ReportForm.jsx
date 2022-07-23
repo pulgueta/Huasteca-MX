@@ -1,6 +1,14 @@
+import { useState } from "react";
 import { FaMapMarker, FaCamera } from "react-icons/fa";
 
 export const ReportForm = () => {
+  const [form, setForm] = useState({
+    lat: "",
+    lng: "",
+    image: undefined,
+    problem: "",
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,16 +27,18 @@ export const ReportForm = () => {
             Lat
             <input
               type="number"
-              value={null}
+              value={form.lat}
+              onChange={(e) => setForm({ ...e, lat: e.target.value })}
               className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
             />
           </label>
           <label htmlFor="coordenadas-lon" className="flexlab font-medium mt-4">
             <FaMapMarker className="mr-2" />
-            Lon
+            Lng
             <input
               type="number"
-              value={null}
+              value={form.lng}
+              onChange={(e) => setForm({ ...e, lng: e.target.value })}
               className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
             />
           </label>
@@ -46,6 +56,8 @@ export const ReportForm = () => {
             <input
               type="file"
               accept="image/*"
+              value={form.image}
+              onChange={(e) => setForm({ ...e, image: e.target.value })}
               className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
             />
 
@@ -57,6 +69,8 @@ export const ReportForm = () => {
             </label>
             <textarea
               name="problema"
+              value={form.problem}
+              onChange={(e) => setForm({ ...e, problem: e.target.value })}
               className="rounded-md py-2 px-4 w-full min-h-[100px]"
             ></textarea>
             <button
