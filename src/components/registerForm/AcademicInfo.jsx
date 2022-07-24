@@ -1,12 +1,14 @@
 import { FaFile, FaIdCard, FaSchool, FaUser } from "react-icons/fa";
+import { helperTextError } from "./helperTextError";
 
-export const AcademicInfo = ({ data, setData }) => {
+export const AcademicInfo = ({ data, setData, error }) => {
+  
   return (
     <>
       <div className="mt-3">
         <label htmlFor="estudios" className="flexlab">
           <FaSchool className="mr-2" />
-          Nivel de estudios
+          Nivel de estudios *
         </label>
         <input
           type="text"
@@ -15,11 +17,12 @@ export const AcademicInfo = ({ data, setData }) => {
           placeholder="Ing. Civil"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.studiesLevel === '' && helperTextError('Nivel de estudios')}
       </div>
       <div className="mt-3">
         <label htmlFor="invitacion" className="flexlab">
           <FaUser className="mr-2" />
-          Invita
+          Invita *
         </label>
         <input
           type="text"
@@ -28,11 +31,12 @@ export const AcademicInfo = ({ data, setData }) => {
           placeholder="Fabiano Caruana"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.invites === '' && helperTextError('Invita')}
       </div>
       <div className="mt-3">
         <label htmlFor="experiencia" className="flexlab">
           <FaIdCard className="mr-2" />
-          Experiencia
+          Experiencia *
         </label>
         <input
           type="number"
@@ -41,11 +45,12 @@ export const AcademicInfo = ({ data, setData }) => {
           placeholder="5"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.experience === '' && helperTextError('Experiencia')}
       </div>
       <div className="mt-3">
         <label htmlFor="carta" className="flexlab">
           <FaFile className="mr-2" />
-          Carta motivos
+          Carta motivos *
         </label>
         <input
           type="file"
@@ -60,6 +65,7 @@ export const AcademicInfo = ({ data, setData }) => {
           accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
         />
+        {error && data.file === '' && helperTextError('Carta motivos')}
       </div>
     </>
   );

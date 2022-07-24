@@ -1,6 +1,8 @@
 import { FaEnvelope, FaKey, FaUser } from "react-icons/fa";
+import { helperTextError } from "./helperTextError";
+import { validateEmail } from "../../utils/validateEmail";
 
-export const UserInfo = ({ data, setData }) => {
+export const UserInfo = ({ data, setData, error }) => {
   return (
     <>
       <div className="mt-2">
@@ -15,6 +17,7 @@ export const UserInfo = ({ data, setData }) => {
           placeholder="correo@mail.com"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && (data.email === '' || !validateEmail(data.email)) && helperTextError('Correo electrónico')}
       </div>
       <div className="mt-2">
         <label htmlFor="usuario" className="flexlab">
@@ -28,6 +31,7 @@ export const UserInfo = ({ data, setData }) => {
           placeholder="Fernando"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.username === '' && helperTextError('Nombre de usuario')}
       </div>
       <div className="mt-2">
         <label htmlFor="contraseña" className="flexlab">
@@ -41,6 +45,7 @@ export const UserInfo = ({ data, setData }) => {
           placeholder="*********"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.password === '' && helperTextError('Contraseña')}
       </div>
     </>
   );
