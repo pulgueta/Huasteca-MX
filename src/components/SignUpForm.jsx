@@ -27,6 +27,7 @@ export const SignUpForm = () => {
   const [error, setError] = useState(false)
 
   const handleSaveData = () => {
+    
     switch (step) {
       case 0:
         if (dataOne.name === '' || dataOne.dadSurname === '' || dataOne.momSurname === '' || dataOne.birthday === '' || dataOne.bornCity === '' || dataOne.phone === '') return setError(true)
