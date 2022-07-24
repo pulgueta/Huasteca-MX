@@ -1,12 +1,14 @@
 import { FaCalendar, FaMapMarker, FaPhone, FaUser } from "react-icons/fa";
+import { helperTextError } from "./helperTextError";
 
-export const PersonalInfo = ({ data, setData }) => {
+export const PersonalInfo = ({ data, setData, error }) => {
+
   return (
     <>
       <div>
         <label htmlFor="nombres" className="flexlab">
           <FaUser className="mr-2" />
-          Nombres
+          Nombres *
         </label>
         <input
           type="text"
@@ -15,12 +17,13 @@ export const PersonalInfo = ({ data, setData }) => {
           placeholder="Luis Fernando"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.name === '' && helperTextError('Nombres')}
       </div>
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-        <div className="mt-3">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between">
+        <div className="mt-3 md:pr-6">
           <label htmlFor="apellido-paterno" className="flexlab">
             <FaUser className="mr-2" />
-            Apellidos
+            Apellidos *
           </label>
           <input
             type="text"
@@ -29,11 +32,12 @@ export const PersonalInfo = ({ data, setData }) => {
             placeholder="Medina"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
+          {error && data.dadSurname === '' && helperTextError('Apellidos')}
         </div>
-        <div className="mt-3">
+        <div className="mt-3 md:pl-6">
           <label htmlFor="apellido-paterno" className="flexlab">
             <FaUser className="mr-2" />
-            Apellidos
+            Apellidos *
           </label>
           <input
             type="text"
@@ -42,12 +46,13 @@ export const PersonalInfo = ({ data, setData }) => {
             placeholder="Antonio"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
+          {error && data.momSurname === '' && helperTextError('Apellidos')}
         </div>
       </div>
       <div className="mt-3">
         <label htmlFor="fecha-nacimiento" className="flexlab">
           <FaCalendar className="mr-2" />
-          Fecha de nacimiento
+          Fecha de nacimiento *
         </label>
         <input
           type="date"
@@ -55,11 +60,12 @@ export const PersonalInfo = ({ data, setData }) => {
           onChange={(e) => setData({ ...data, birthday: e.target.value })}
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.birthday === '' && helperTextError('Fecha de nacimiento')}
       </div>
       <div className="mt-3">
         <label htmlFor="ciudad-origen" className="flexlab">
           <FaMapMarker className="mr-2" />
-          Ciudad de origen
+          Ciudad de origen *
         </label>
         <input
           type="text"
@@ -68,11 +74,12 @@ export const PersonalInfo = ({ data, setData }) => {
           placeholder="Huejutla"
           className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.bornCity === '' && helperTextError('Ciudad de origen')}
       </div>
       <div className="mt-3 md:w-1/2">
         <label htmlFor="telefono" className="flexlab">
           <FaPhone className="mr-2" />
-          Teléfono
+          Teléfono *
         </label>
         <input
           type="tel"
@@ -81,6 +88,7 @@ export const PersonalInfo = ({ data, setData }) => {
           placeholder="123456789"
           className="w-1/2 lg:w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
         />
+        {error && data.phone === '' && helperTextError('Teléfono')}
       </div>
     </>
   );

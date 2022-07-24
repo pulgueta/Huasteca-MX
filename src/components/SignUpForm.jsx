@@ -1,33 +1,60 @@
 import { useState } from "react";
 
 import { PersonalInfo, AcademicInfo, UserInfo } from "./registerForm";
+import { validateEmail } from "../utils/validateEmail";
 
 export const SignUpForm = () => {
   const [step, setStep] = useState(0);
-  const [data, setData] = useState({
+  const [dataOne, setDataOne] = useState({
     name: "",
     dadSurname: "",
     momSurname: "",
-    email: "",
-    studiesLevel: "",
     phone: "",
-    invites: "",
-    username: "",
-    password: "",
-    experience: "",
     birthday: "",
     bornCity: "",
+  });
+  const [dataTwo, setDataTwo] = useState({
+    studiesLevel: "",
+    invites: "",
+    experience: "",
     file: "",
   });
+  const [dataThree, setDataThree] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState(false)
+
+  const handleSaveData = () => {
+    switch (step) {
+      case 0:
+        if (dataOne.name === '' || dataOne.dadSurname === '' || dataOne.momSurname === '' || dataOne.birthday === '' || dataOne.bornCity === '' || dataOne.phone === '') return setError(true)
+        break
+      case 1:
+        if (dataTwo.studiesLevel === '' || dataTwo.invites === '' || dataTwo.experience === '' || dataTwo.file === '') return setError(true)
+        break
+      case 2:
+        if (dataThree.email === '' || dataThree.username === '' || dataThree.password === '') return setError(true)
+        if (!validateEmail(dataThree.email)) return setError(true)
+        break
+      default:
+        break;
+    }
+
+    setError(false)
+    setStep((page) => page + 1)
+    if (step === 3) handleSubmit()
+  }
 
   const FormStep = () => {
     switch (step) {
       case 0:
-        return <PersonalInfo data={data} setData={setData} />;
+        return <PersonalInfo data={dataOne} setData={setDataOne} error={error} />;
       case 1:
-        return <AcademicInfo data={data} setData={setData} />;
+        return <AcademicInfo data={dataTwo} setData={setDataTwo} error={error} />;
       case 2:
-        return <UserInfo data={data} setData={setData} />;
+        return <UserInfo data={dataThree} setData={setDataThree} error={error} />;
       case 3:
         return (
           <h1 className="text-xl font-semibold text-center mt-2">¿Enviar?</h1>
@@ -37,10 +64,13 @@ export const SignUpForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(data);
+  const handleSubmit = () => {
+    let data = {}
+    data = { ...data, ...dataOne }
+    data = { ...data, ...dataTwo }
+    data = { ...data, ...dataThree }
+    
+    console.log('data :>> ', data);
   };
 
   return (
@@ -70,7 +100,7 @@ export const SignUpForm = () => {
           ) : (
             <button
               type="button"
-              onClick={() => setStep((page) => page + 1)}
+              onClick={handleSaveData}
               className="bg-blue-500 hover:bg-blue-600 transition-all duration-300 py-3 text-neutral-100 font-semibold w-full rounded-md"
             >
               Siguiente
