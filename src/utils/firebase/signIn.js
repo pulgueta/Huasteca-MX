@@ -1,9 +1,21 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 import { auth } from "../../firebase";
 
 export const signIn = async (email, password) => {
   await signInWithEmailAndPassword(auth, email, password)
-    .then((user) => console.log(user))
+    .then((user) => {
+      return user
+    })
     .catch((err) => console.log(err));
 };
+
+export const logOut = () => {
+  signOut(auth).then(() => {
+    localStorage.removeItem('user')
+    window.location.reload();
+  }).catch((error) => {
+    // An error happened.
+    console.log('error', error)
+  });
+}

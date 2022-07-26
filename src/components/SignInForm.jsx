@@ -1,16 +1,29 @@
 // import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
+import { signIn } from "../utils/firebase/signIn";
 // import { signIn } from "../utils/firebase/signIn";
 // import { authCheck } from "../redux/auth";
+import { useNavigate } from "react-router-dom";
 
 export const SignInForm = () => {
   // const dispatch = useDispatch();
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate()
+  const [user, setUser] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+    
+    await signIn(user.email, user.password)
+    navigate('/')
+
   };
 
   return (
@@ -26,6 +39,7 @@ export const SignInForm = () => {
             type="email"
             placeholder="correo@electronico.com"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
+            onChange={(e) => setUser(user => ({ ...user, email: e.target.value }))}
           />
         </div>
         <div className="mt-2">
@@ -34,6 +48,7 @@ export const SignInForm = () => {
             type="password"
             placeholder="**********"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
+            onChange={(e) => setUser(user => ({ ...user, password: e.target.value }))}
           />
         </div>
         <div className="w-full flex flex-col items-center justify-center mt-5">
