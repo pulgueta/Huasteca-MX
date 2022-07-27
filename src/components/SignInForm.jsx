@@ -1,16 +1,12 @@
-// import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { signIn } from "../utils/firebase/signIn";
-// import { signIn } from "../utils/firebase/signIn";
-// import { authCheck } from "../redux/auth";
 import { useNavigate } from "react-router-dom";
 
 export const SignInForm = () => {
-  // const dispatch = useDispatch();
 
   const navigate = useNavigate()
   const [user, setUser] = useState({
@@ -34,10 +30,10 @@ export const SignInForm = () => {
       </div>
       <form className="mt-6" onSubmit={handleLogin}>
         <div>
-          <label htmlFor="correo">Correo electrónico</label>
+          <label htmlFor="usuario">Usuario</label>
           <input
-            type="email"
-            placeholder="correo@electronico.com"
+            type="text"
+            placeholder="usuario"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
             onChange={(e) => setUser(user => ({ ...user, email: e.target.value }))}
           />
