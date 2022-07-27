@@ -2,8 +2,13 @@ import { useState } from "react";
 
 import { PersonalInfo, AcademicInfo, UserInfo } from "./registerForm";
 import { validateEmail } from "../utils/validateEmail";
+import { signUp } from "../utils/firebase/signUp";
+import { useNavigate } from "react-router-dom";
+import { saveDoc } from "../utils/firebase/firebaseHelp";
 
 export const SignUpForm = () => {
+  const navidate = useNavigate()
+
   const [step, setStep] = useState(0);
   const [dataOne, setDataOne] = useState({
     name: "",
@@ -27,7 +32,7 @@ export const SignUpForm = () => {
   const [error, setError] = useState(false)
 
   const handleSaveData = () => {
-    
+
     switch (step) {
       case 0:
         if (dataOne.name === '' || dataOne.dadSurname === '' || dataOne.momSurname === '' || dataOne.birthday === '' || dataOne.bornCity === '' || dataOne.phone === '') return setError(true)
@@ -65,13 +70,22 @@ export const SignUpForm = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let data = {}
     data = { ...data, ...dataOne }
     data = { ...data, ...dataTwo }
     data = { ...data, ...dataThree }
-    
-    console.log('data :>> ', data);
+
+    const flagSignUp = await signUp(data.email, data.password)
+    const obj = {
+      ...data, ...{
+        uid: flagSignUp.uid,
+        state: 'pending',
+      }
+    }
+    delete obj.password
+    if(obj.uid) await saveDoc('users', obj.uid, obj)
+    navidate('/')
   };
 
   return (

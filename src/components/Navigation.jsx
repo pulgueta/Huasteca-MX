@@ -12,8 +12,11 @@ import {
 import { BsFillMegaphoneFill } from "react-icons/bs";
 
 import Logo from "../static/logo.jpg";
+import { logOut } from "../utils/firebase/signIn";
 
 export const Navigation = () => {
+
+  const userLog = localStorage.getItem('user')
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -56,20 +59,33 @@ export const Navigation = () => {
               <Link to="/acerca-de">Acerca de CAIH</Link>
             </li>
           </div>
-          <div className="flex items-center">
-            <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
-              <Link to="/inicio-sesion" className="flex items-center">
-                <FaSignInAlt className="mr-1" />
-                Iniciar sesión
-              </Link>
-            </li>
-            <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
-              <Link to="/registro" className="flex items-center">
-                <FaSignInAlt className="mr-1" />
-                Registrar
-              </Link>
-            </li>
-          </div>
+          {userLog ? (
+            <div className="flex items-center">
+              <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
+                <div className="flex items-center">
+                  <button className="flex  items-center mr-1" onClick={logOut}>
+                    <FaSignInAlt className="mr-1" />
+                    Cerrar sesión
+                  </button>
+                </div>
+              </li>
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
+                <Link to="/inicio-sesion" className="flex items-center">
+                  <FaSignInAlt className="mr-1" />
+                  Iniciar sesión
+                </Link>
+              </li>
+              <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
+                <Link to="/registro" className="flex items-center">
+                  <FaSignInAlt className="mr-1" />
+                  Registrar
+                </Link>
+              </li>
+            </div>
+          )}
         </ul>
       )}
       <AnimatePresence>
@@ -143,27 +159,39 @@ export const Navigation = () => {
                   Acerca de CAIH
                 </Link>
               </li>
-
-              <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md mt-4 mb-8">
-                <Link
-                  to="/inicio-sesion"
-                  className="flex items-center"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <FaSignInAlt className="mr-1" />
-                  Iniciar sesión
-                </Link>
-              </li>
-              <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
-                <Link
-                  to="/registro"
-                  className="flex items-center"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <FaSignInAlt className="mr-1" />
-                  Registrar
-                </Link>
-              </li>
+              {userLog ? (
+                <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
+                  <div className="flex items-center">
+                    <button className="flex  items-center mr-1" onClick={logOut}>
+                      <FaSignInAlt className="mr-1" />
+                      Cerrar sesión
+                    </button>
+                  </div>
+                </li>
+              ) : (
+                <>
+                  <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md mt-4 mb-8">
+                    <Link
+                      to="/inicio-sesion"
+                      className="flex items-center"
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      <FaSignInAlt className="mr-1" />
+                      Iniciar sesión
+                    </Link>
+                  </li>
+                  <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
+                    <Link
+                      to="/registro"
+                      className="flex items-center"
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      <FaSignInAlt className="mr-1" />
+                      Registrar
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </motion.div>
         )}
