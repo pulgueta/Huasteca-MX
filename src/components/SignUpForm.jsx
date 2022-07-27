@@ -4,6 +4,7 @@ import { PersonalInfo, AcademicInfo, UserInfo } from "./registerForm";
 import { validateEmail } from "../utils/validateEmail";
 import { signUp } from "../utils/firebase/signUp";
 import { useNavigate } from "react-router-dom";
+import { saveDoc } from "../utils/firebase/firebaseHelp";
 
 export const SignUpForm = () => {
   const navidate = useNavigate()
@@ -75,7 +76,15 @@ export const SignUpForm = () => {
     data = { ...data, ...dataTwo }
     data = { ...data, ...dataThree }
 
-    await signUp(data.email, data.password)
+    const flagSignUp = await signUp(data.email, data.password)
+    const obj = {
+      ...data, ...{
+        uid: flagSignUp.uid,
+        state: 'pending',
+      }
+    }
+    delete obj.password
+    if(obj.uid) await saveDoc('users', obj.uid, obj)
     navidate('/')
   };
 

@@ -2,7 +2,7 @@ import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export const signUp = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password)
+    const user = await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
@@ -15,4 +15,5 @@ export const signUp = async (email, password) => {
             console.log(errorCode, errorMessage)
             // ..
         });
+    return user
 }
