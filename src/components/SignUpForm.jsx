@@ -84,6 +84,7 @@ export const SignUpForm = () => {
       }
     }
     delete obj.password
+    
     if(obj.uid) await saveDoc('users', obj.uid, obj)
     navidate('/')
   };
