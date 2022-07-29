@@ -56,10 +56,6 @@ export const AcademicInfo = ({ data, setData, error }) => {
           type="file"
           value={data.file}
           onChange={(e) => {
-            // const data = e.target.files;
-            // const fileArr = Array.prototype.slice.call(data);
-            // setData({ ...data, file: fileArr });
-            // setData({ ...data, file: e.target.files[0] });
             setData({ ...data, file: e.target.value });
           }}
           accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
