@@ -54,7 +54,7 @@ export const SignInForm = () => {
           >
             Iniciar sesión
           </button>
-          <Link to="/restaurar" className="underline my-2">
+          <Link to="/restablecer" className="underline my-2">
             &iquest;Olvidaste tu contrase&ntilde;a&#x3F;
           </Link>
           <Link
