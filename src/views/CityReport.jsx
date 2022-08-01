@@ -14,6 +14,7 @@ export const CityReport = () => {
 
   const [locationCenter, setLocationCenter] = useState({})
   const [viewMarker, setViewMarker] = useState(false)
+  const [reload, setReload] = useState(false)
 
   if (!isLoaded) {
     return <h1>Cargando mapa...</h1>;
@@ -67,6 +68,8 @@ export const CityReport = () => {
           locationCenter={locationCenter}
           setLocationCenter={setLocationCenter}
           handleMyLocation={handleMyLocation}
+          reload={reload}
+          setReload={setReload}
         />
       </GoogleMap>
     </>

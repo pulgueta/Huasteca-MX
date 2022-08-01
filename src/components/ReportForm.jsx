@@ -2,22 +2,31 @@ import { useState } from "react";
 
 import { FaMapMarker, FaCamera } from "react-icons/fa";
 
-export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation }) => {
+import { addDocs } from "../utils/firebase/firebaseHelp";
+
+export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation, reload, setReload }) => {
   const [images, setImages] = useState([])
   const [problem, setProblem] = useState('')
   const [error, setError] = useState(false)
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!locationCenter.lat || !locationCenter.lng || images.length === 0 || problem === '') return setError(true)
 
     let data = {
       lat: locationCenter.lat,
       lng: locationCenter.lng,
       images: images,
-      problem: problem
+      problem: problem,
+      state: 'pending'
     }
 
-    console.log('data :>> ', data);
+    setImages(null)
+    setProblem('')
+    setError(false)
+    setLocationCenter(null)
+    setReload(!reload)
+
+    await addDocs('cityReports', data)
   };
 
   return (
@@ -31,7 +40,7 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
           Lat
           <input
             type="number"
-            value={locationCenter && locationCenter.lat && locationCenter.lat}
+            value={(locationCenter && locationCenter.lat) ? locationCenter.lat : ''}
             onChange={(e) => setLocationCenter(locationCenter => ({ ...locationCenter, lat: parseFloat(e.target.value) }))}
             className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
@@ -41,7 +50,7 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
           Lng
           <input
             type="number"
-            value={locationCenter && locationCenter.lng && locationCenter.lng}
+            value={(locationCenter && locationCenter.lng) ? locationCenter.lng : ''}
             onChange={(e) => setLocationCenter(locationCenter => ({ ...locationCenter, lng: parseFloat(e.target.value) }))}
             className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
@@ -66,7 +75,6 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
               const array = []
               for (let index = 0; index < arrayOld.length; index++) {
                 const element = arrayOld[index];
-                console.log('element :>> ', element.name);
                 array.push(element.name)
               }
               setImages(array)
