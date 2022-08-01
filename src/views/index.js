@@ -1,4 +1,4 @@
-export * from "./CityReport"
+export * from "./CityReport";
 export * from "./Landing";
 export * from "./SignUp";
 export * from "./SignIn";
@@ -7,3 +7,4 @@ export * from "./articles/Article";
 export * from "./culturalTour/CulturalTour";
 export * from "./culturalTour/CulturalTourDetails";
 export * from "./About";
+export * from "./ForgotPassword";
