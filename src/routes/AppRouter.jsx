@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Footer, Navigation } from "../components";
+import { Footer } from "../components";
 import { Navbar } from "../components/Navbar";
 import { Landing, SignUp, SignIn, Article, ArticleDetails, CulturalTour, CityReport, CulturalTourDetails, About, ForgotPassword } from "../views";
 
