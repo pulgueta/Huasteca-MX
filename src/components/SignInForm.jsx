@@ -7,19 +7,19 @@ import { signIn } from "../utils/firebase/signIn";
 import { useNavigate } from "react-router-dom";
 
 export const SignInForm = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
-    await signIn(user.email, user.password)
-    navigate('/')
 
+    await signIn(user.email, user.password);
+    navigate("/", {
+      replace: true,
+    });
   };
 
   return (
@@ -30,12 +30,14 @@ export const SignInForm = () => {
       </div>
       <form className="mt-6" onSubmit={handleLogin}>
         <div>
-          <label htmlFor="usuario">Usuario</label>
+          <label htmlFor="correo">Correo electrónico</label>
           <input
-            type="text"
-            placeholder="usuario"
+            type="email"
+            placeholder="correo@electronico.com"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
-            onChange={(e) => setUser(user => ({ ...user, email: e.target.value }))}
+            onChange={(e) =>
+              setUser((user) => ({ ...user, email: e.target.value }))
+            }
           />
         </div>
         <div className="mt-2">
@@ -44,7 +46,9 @@ export const SignInForm = () => {
             type="password"
             placeholder="**********"
             className="w-full h-10 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
-            onChange={(e) => setUser(user => ({ ...user, password: e.target.value }))}
+            onChange={(e) =>
+              setUser((user) => ({ ...user, password: e.target.value }))
+            }
           />
         </div>
         <div className="w-full flex flex-col items-center justify-center mt-5">
