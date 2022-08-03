@@ -86,7 +86,7 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
         <div className="mt-4">
           <label htmlFor="imagen" className={`flexlab font-medium ${error && images === null && 'text-red-700'}`}>
             <FaCamera className="mr-2" />
-            {error && images === null ? 'Foto ( Campo requerido )' : 'Foto'}
+            {'Foto'}
           </label>
           <div className="flex flex-row">
             <input
