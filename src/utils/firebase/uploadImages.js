@@ -1,7 +1,7 @@
 import { storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-export async function UploadImages(collectionName, data) {
+export const UploadImages = async (collectionName, data) => {
     const arrayImages = []
     for (let index = 0; index < data.length; index++) {
         const element = data[index];

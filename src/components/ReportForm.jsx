@@ -5,6 +5,8 @@ import { FaMapMarker, FaCamera, FaUpload } from "react-icons/fa";
 import { addDocs } from "../utils/firebase/firebaseHelp";
 import { UploadImages } from "../utils/firebase/uploadImages";
 
+import toast from "react-hot-toast";
+
 export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation, reload, setReload }) => {
   const [images, setImages] = useState(null)
   const [imagesUrl, setImagesUrl] = useState([])
@@ -12,7 +14,7 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
   const [error, setError] = useState(false)
 
   const handleSubmit = async () => {
-    if (!locationCenter.lat || !locationCenter.lng || imagesUrl.length === 0 || problem === '') return setError(true)
+    if (!locationCenter.lat || !locationCenter.lng || imagesUrl.length === 0 || problem === '' || images === null) return toast.error('Debes Completar el formulario!')
 
     let data = {
       lat: locationCenter.lat,
@@ -30,14 +32,23 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
     setReload(!reload)
 
     await addDocs('cityReports', data)
+    toast.success('Reporte subido!')
+
   };
 
   const uploadImagesStorage = async () => {
-    if (images === null) return setError(true)
+    if (images === null) return toast.error('Debes subir primero tus images!')
 
-    const arrayImages = await UploadImages('reportImages', images)
-    setImages(null)
-    setImagesUrl(arrayImages)
+    const arrayImages = await toast.promise(UploadImages('reportImages', images), {
+      loading: "Guardando...",
+      success: "¡Imagenes guardadas!",
+      error: "¡Algo salió mal!",
+    });
+
+    if (arrayImages.length > 0) {
+      setImagesUrl(arrayImages)
+    }
+
   }
 
   return (
