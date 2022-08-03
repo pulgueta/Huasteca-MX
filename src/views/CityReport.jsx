@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 // import axios from 'axios';
 
+import { Toaster } from "react-hot-toast";
 import { ReportForm } from "../components";
 
 let center = { lat: 7.067744476074094, lng: -73.85680068055541 };
@@ -43,6 +44,7 @@ export const CityReport = () => {
 
   return (
     <>
+      <Toaster />
       <GoogleMap
         mapContainerClassName="w-full h-[150vh] md:h-[calc(100vh-160px)]"
         zoom={18}

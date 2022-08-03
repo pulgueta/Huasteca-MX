@@ -162,7 +162,7 @@ export const Navigation = () => {
               {userLog ? (
                 <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
                   <div className="flex items-center">
-                    <button className="flex  items-center mr-1" onClick={logOut}>
+                    <button className="flex items-center mr-1" onClick={logOut}>
                       <FaSignInAlt className="mr-1" />
                       Cerrar sesión
                     </button>

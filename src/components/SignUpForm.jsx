@@ -5,11 +5,13 @@ import { validateEmail } from "../utils/validateEmail";
 import { signUp } from "../utils/firebase/signUp";
 import { useNavigate } from "react-router-dom";
 import { saveDoc } from "../utils/firebase/firebaseHelp";
+import toast, { Toaster } from "react-hot-toast";
 
 export const SignUpForm = () => {
   const navidate = useNavigate()
 
   const [step, setStep] = useState(0);
+  const [imageUrl, setImageUrl] = useState([])
   const [dataOne, setDataOne] = useState({
     name: "",
     dadSurname: "",
@@ -35,14 +37,14 @@ export const SignUpForm = () => {
 
     switch (step) {
       case 0:
-        if (dataOne.name === '' || dataOne.dadSurname === '' || dataOne.momSurname === '' || dataOne.birthday === '' || dataOne.bornCity === '' || dataOne.phone === '') return setError(true)
+        if (dataOne.name === '' || dataOne.dadSurname === '' || dataOne.momSurname === '' || dataOne.birthday === '' || dataOne.bornCity === '' || dataOne.phone === '') return toast.error('Debes llenar el fomrulario!')
         break
       case 1:
-        if (dataTwo.studiesLevel === '' || dataTwo.invites === '' || dataTwo.experience === '' || dataTwo.file === '') return setError(true)
+        if (dataTwo.studiesLevel === '' || dataTwo.invites === '' || dataTwo.experience === '' || imageUrl.length === 0) return toast.error('Debes llenar el fomrulario!')
         break
       case 2:
-        if (dataThree.email === '' || dataThree.username === '' || dataThree.password === '') return setError(true)
-        if (!validateEmail(dataThree.email)) return setError(true)
+        if (dataThree.email === '' || dataThree.username === '' || dataThree.password === '') return toast.error('Debes llenar el fomrulario!')
+        if (!validateEmail(dataThree.email)) return toast.error('El correo es incorrecto!')
         break
       default:
         break;
@@ -58,7 +60,7 @@ export const SignUpForm = () => {
       case 0:
         return <PersonalInfo data={dataOne} setData={setDataOne} error={error} />;
       case 1:
-        return <AcademicInfo data={dataTwo} setData={setDataTwo} error={error} />;
+        return <AcademicInfo data={dataTwo} setData={setDataTwo} error={error} setImageUrl={setImageUrl} />;
       case 2:
         return <UserInfo data={dataThree} setData={setDataThree} error={error} />;
       case 3:
@@ -71,6 +73,7 @@ export const SignUpForm = () => {
   };
 
   const handleSubmit = async () => {
+    dataTwo.file = imageUrl[0]
     let data = {}
     data = { ...data, ...dataOne }
     data = { ...data, ...dataTwo }
@@ -84,12 +87,16 @@ export const SignUpForm = () => {
       }
     }
     delete obj.password
-    if(obj.uid) await saveDoc('users', obj.uid, obj)
+    if (obj.uid) await saveDoc('users', obj.uid, obj)
+    toast.success('Tu usuario a sido registrado!')
+    toast.success('Debes esperar a que un encargado acepte tu solicitud de registro')
     navidate('/')
+
   };
 
   return (
     <div className="w-80 md:w-[450px] h-content bg-neutral-100 mt-10 shadow-md rounded-lg p-6">
+      <Toaster />
       <div className="flex flex-col items-center w-full justify-center">
         <h1 className="text-xl font-bold text-center">Crear cuenta</h1>
       </div>

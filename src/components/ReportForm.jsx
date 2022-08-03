@@ -1,33 +1,55 @@
 import { useState } from "react";
 
-import { FaMapMarker, FaCamera } from "react-icons/fa";
+import { FaMapMarker, FaCamera, FaUpload } from "react-icons/fa";
 
 import { addDocs } from "../utils/firebase/firebaseHelp";
+import { UploadImages } from "../utils/firebase/uploadImages";
+
+import toast from "react-hot-toast";
 
 export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation, reload, setReload }) => {
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState(null)
+  const [imagesUrl, setImagesUrl] = useState([])
   const [problem, setProblem] = useState('')
   const [error, setError] = useState(false)
 
   const handleSubmit = async () => {
-    if (!locationCenter.lat || !locationCenter.lng || images.length === 0 || problem === '') return setError(true)
+    if (!locationCenter.lat || !locationCenter.lng || imagesUrl.length === 0 || problem === '' || images === null) return toast.error('Debes Completar el formulario!')
 
     let data = {
       lat: locationCenter.lat,
       lng: locationCenter.lng,
-      images: images,
+      images: imagesUrl,
       problem: problem,
       state: 'pending'
     }
 
     setImages(null)
+    setImagesUrl(null)
     setProblem('')
     setError(false)
     setLocationCenter(null)
     setReload(!reload)
 
     await addDocs('cityReports', data)
+    toast.success('Reporte subido!')
+
   };
+
+  const uploadImagesStorage = async () => {
+    if (images === null) return toast.error('Debes subir primero tus images!')
+
+    const arrayImages = await toast.promise(UploadImages('reportImages', images), {
+      loading: "Guardando...",
+      success: "¡Imagenes guardadas!",
+      error: "¡Algo salió mal!",
+    });
+
+    if (arrayImages.length > 0) {
+      setImagesUrl(arrayImages)
+    }
+
+  }
 
   return (
     <div className="bg-neutral-300 w-80 md:w-[420px] py-4 px-6 lg:px-8 lg:py-6 rounded-lg drop-shadow-md h-max relative top-16 left-6 lg:top-20 lg:left-20">
@@ -62,27 +84,24 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
           Localizar mi ubicación
         </button>
         <div className="mt-4">
-          <label htmlFor="imagen" className="flexlab font-medium">
+          <label htmlFor="imagen" className={`flexlab font-medium ${error && images === null && 'text-red-700'}`}>
             <FaCamera className="mr-2" />
-            Foto
+            {'Foto'}
           </label>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={(e) => {
-              const arrayOld = e.target.files
-              const array = []
-              for (let index = 0; index < arrayOld.length; index++) {
-                const element = arrayOld[index];
-                array.push(element.name)
-              }
-              setImages(array)
-            }}
-            className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
-            error={error}
-          />
-
+          <div className="flex flex-row">
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={(e) => setImages(e.target.files)}
+              className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
+              error={error}
+            />
+            <button className="bg-huasteca-orange rounded-md flex flex-row items-center justify-around ml-3 h-10 mt-2 p-2" onClick={uploadImagesStorage}>
+              Cargar
+              <FaUpload className="ml-2" />
+            </button>
+          </div>
           <label
             htmlFor="descripcion"
             className="flexlab font-medium mt-4 mb-2"
