@@ -20,7 +20,7 @@ export const Navbar = () => {
   const handleClick = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-huasteca-gray relative md:px-8 lg:px-4 h-16 md:h-20 flex items-center justify-between w-full">
+    <nav className="bg-huasteca-gray relative px-4 md:px-8 lg:px-4 h-16 md:h-20 flex items-center justify-between w-full">
       <Link to="/" className="flex items-center">
         <img src={Logo} alt="Logo" className="w-12" />
         <p className="hidden md:block lg:w-60 xl:w-72 mx-4 text-base text-neutral-100 font-semibold">

@@ -1,14 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Footer, Navbar } from "../components";
+import { Layout } from "../components";
 import { Landing, SignUp, SignIn, Article, ArticleDetails, CulturalTour, CityReport, CulturalTourDetails, About, ForgotPassword } from "../views";
 
 export const AppRouter = () => {
   return (
-    <>
-      {/* <Navigation /> */}
-      <Navbar />
-
+    <Layout>
       <Routes>
         <Route index path="/" element={<Landing />} />
 
@@ -24,8 +21,6 @@ export const AppRouter = () => {
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-
-      <Footer />
-    </>
+    </Layout>
   );
 };
