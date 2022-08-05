@@ -20,6 +20,7 @@ export const SignInForm = () => {
     navigate("/", {
       replace: true,
     });
+    window.location.reload();
   };
 
   return (

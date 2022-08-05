@@ -20,10 +20,10 @@ export const Navbar = () => {
   const handleClick = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-huasteca-gray relative px-6 md:px-8 lg:px-4 xl:px-12 h-16 md:h-20 flex items-center justify-between w-full">
+    <nav className="bg-huasteca-gray relative md:px-8 lg:px-4 h-16 md:h-20 flex items-center justify-between w-full">
       <Link to="/" className="flex items-center">
         <img src={Logo} alt="Logo" className="w-12" />
-        <p className="hidden md:block md:w-60 xl:w-72 mx-4 text-base text-neutral-100 font-semibold">
+        <p className="hidden md:block lg:w-60 xl:w-72 mx-4 text-base text-neutral-100 font-semibold">
           Colegio de Arquitectos e Ingenieros
         </p>
       </Link>
@@ -64,14 +64,20 @@ export const Navbar = () => {
         ) : (
           <div className="flex items-center">
             <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
-              <Link to="/inicio-sesion" className="flex items-center">
-                <FaSignInAlt className="mr-1" />
+              <Link
+                to="/inicio-sesion"
+                className="flex items-center lg:text-xs xl:text-base"
+              >
+                <FaSignInAlt className="mr-1 lg:hidden xl:block" />
                 Iniciar sesión
               </Link>
             </li>
             <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
-              <Link to="/registro" className="flex items-center">
-                <FaSignInAlt className="mr-1" />
+              <Link
+                to="/registro"
+                className="flex items-center lg:text-xs xl:text-base"
+              >
+                <FaSignInAlt className="mr-1 lg:hidden xl:block" />
                 Registrar
               </Link>
             </li>
