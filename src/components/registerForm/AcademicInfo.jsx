@@ -1,8 +1,26 @@
-import { FaFile, FaIdCard, FaSchool, FaUser } from "react-icons/fa";
+import { FaFile, FaIdCard, FaSchool, FaUser, FaUpload } from "react-icons/fa";
 import { helperTextError } from "./helperTextError";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { UploadImages } from "../../utils/firebase/uploadImages";
 
-export const AcademicInfo = ({ data, setData, error }) => {
-  
+export const AcademicInfo = ({ data, setData, error, setImageUrl }) => {
+
+  const [files, setFiles] = useState(null)
+
+  const uploadFilesStorage = async (e) => {
+    e.preventDefault()
+    if (files === null) return toast.error('Debes subir primero el archivo!')
+
+    const arrayFiles = await toast.promise(UploadImages('registerFiles', files), {
+      loading: "Guardando...",
+      success: "¡Archivo guardado!",
+      error: "¡Algo salió mal!",
+    });
+    setImageUrl(arrayFiles)
+
+  }
+
   return (
     <>
       <div className="mt-3">
@@ -52,15 +70,18 @@ export const AcademicInfo = ({ data, setData, error }) => {
           <FaFile className="mr-2" />
           Carta motivos *
         </label>
-        <input
-          type="file"
-          value={data.file}
-          onChange={(e) => {
-            setData({ ...data, file: e.target.value });
-          }}
-          accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
-        />
+        <div className="flex flex-row">
+          <input
+            type="file"
+            onChange={(e) => setFiles(e.target.files)}
+            accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
+          />
+          <button className="bg-huasteca-orange rounded-md flex flex-row items-center justify-around ml-3 h-10 mt-2 p-2" onClick={uploadFilesStorage}>
+            Cargar
+            <FaUpload className="ml-2" />
+          </button>
+        </div>
         {error && data.file === '' && helperTextError('Carta motivos')}
       </div>
     </>
