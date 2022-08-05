@@ -7,52 +7,73 @@ import { UploadImages } from "../utils/firebase/uploadImages";
 
 import toast from "react-hot-toast";
 
-export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation, reload, setReload }) => {
-  const [images, setImages] = useState(null)
-  const [imagesUrl, setImagesUrl] = useState([])
-  const [problem, setProblem] = useState('')
-  const [error, setError] = useState(false)
+export const ReportForm = ({
+  locationCenter,
+  setLocationCenter,
+  handleMyLocation,
+  reload,
+  setReload,
+  toggleMap,
+}) => {
+  const [images, setImages] = useState(null);
+  const [imagesUrl, setImagesUrl] = useState([]);
+  const [problem, setProblem] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async () => {
-    if (!locationCenter.lat || !locationCenter.lng || imagesUrl.length === 0 || problem === '' || images === null) return toast.error('Debes Completar el formulario!')
+    if (
+      !locationCenter.lat ||
+      !locationCenter.lng ||
+      imagesUrl.length === 0 ||
+      problem === "" ||
+      images === null
+    )
+      return toast.error("Debes Completar el formulario!");
 
     let data = {
       lat: locationCenter.lat,
       lng: locationCenter.lng,
       images: imagesUrl,
       problem: problem,
-      state: 'pending'
-    }
+      state: "pending",
+    };
 
-    setImages(null)
-    setImagesUrl(null)
-    setProblem('')
-    setError(false)
-    setLocationCenter(null)
-    setReload(!reload)
+    setImages(null);
+    setImagesUrl(null);
+    setProblem("");
+    setError(false);
+    setLocationCenter(null);
+    setReload(!reload);
 
-    await addDocs('cityReports', data)
-    toast.success('Reporte subido!')
-
+    await addDocs("cityReports", data);
+    toast.success("Reporte subido!");
   };
 
   const uploadImagesStorage = async () => {
-    if (images === null) return toast.error('Debes subir primero tus images!')
+    if (images === null) return toast.error("Debes subir primero tus images!");
 
-    const arrayImages = await toast.promise(UploadImages('reportImages', images), {
-      loading: "Guardando...",
-      success: "¡Imagenes guardadas!",
-      error: "¡Algo salió mal!",
-    });
+    const arrayImages = await toast.promise(
+      UploadImages("reportImages", images),
+      {
+        loading: "Guardando...",
+        success: "¡Imagenes guardadas!",
+        error: "¡Algo salió mal!",
+      }
+    );
 
     if (arrayImages.length > 0) {
-      setImagesUrl(arrayImages)
+      setImagesUrl(arrayImages);
     }
-
-  }
+  };
 
   return (
-    <div className="bg-neutral-300 w-80 md:w-[420px] py-4 px-6 lg:px-8 lg:py-6 rounded-lg drop-shadow-md h-max relative top-16 left-6 lg:top-20 lg:left-20">
+    <div
+      className={
+        toggleMap
+          ? "bg-neutral-300 w-80 md:w-[420px] py-4 px-6 lg:px-8 lg:py-6 rounded-lg drop-shadow-md h-max"
+          : "hidden"
+      }
+    >
       <h1 className="text-xl lg:text-2xl font-bold text-center">
         Reportar problema
       </h1>
@@ -62,8 +83,15 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
           Lat
           <input
             type="number"
-            value={(locationCenter && locationCenter.lat) ? locationCenter.lat : ''}
-            onChange={(e) => setLocationCenter(locationCenter => ({ ...locationCenter, lat: parseFloat(e.target.value) }))}
+            value={
+              locationCenter && locationCenter.lat ? locationCenter.lat : ""
+            }
+            onChange={(e) =>
+              setLocationCenter((locationCenter) => ({
+                ...locationCenter,
+                lat: parseFloat(e.target.value),
+              }))
+            }
             className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
         </label>
@@ -72,8 +100,15 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
           Lng
           <input
             type="number"
-            value={(locationCenter && locationCenter.lng) ? locationCenter.lng : ''}
-            onChange={(e) => setLocationCenter(locationCenter => ({ ...locationCenter, lng: parseFloat(e.target.value) }))}
+            value={
+              locationCenter && locationCenter.lng ? locationCenter.lng : ""
+            }
+            onChange={(e) =>
+              setLocationCenter((locationCenter) => ({
+                ...locationCenter,
+                lng: parseFloat(e.target.value),
+              }))
+            }
             className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
         </label>
@@ -84,9 +119,14 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
           Localizar mi ubicación
         </button>
         <div className="mt-4">
-          <label htmlFor="imagen" className={`flexlab font-medium ${error && images === null && 'text-red-700'}`}>
+          <label
+            htmlFor="imagen"
+            className={`flexlab font-medium ${
+              error && images === null && "text-red-700"
+            }`}
+          >
             <FaCamera className="mr-2" />
-            {'Foto'}
+            {"Foto"}
           </label>
           <div className="flex flex-row">
             <input
@@ -97,7 +137,10 @@ export const ReportForm = ({ locationCenter, setLocationCenter, handleMyLocation
               className="w-full h-10 rounded-md text-sm file:h-10 file:bg-huasteca-orange file:rounded-l-md bg-neutral-100 file:border-none file:px-4 file:py-2 mt-2"
               error={error}
             />
-            <button className="bg-huasteca-orange rounded-md flex flex-row items-center justify-around ml-3 h-10 mt-2 p-2" onClick={uploadImagesStorage}>
+            <button
+              className="bg-huasteca-orange rounded-md flex flex-row items-center justify-around ml-3 h-10 mt-2 p-2"
+              onClick={uploadImagesStorage}
+            >
               Cargar
               <FaUpload className="ml-2" />
             </button>
