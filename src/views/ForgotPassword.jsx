@@ -24,7 +24,7 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-140px)] bg-neutral-400 grid place-content-center place-self-center">
+    <div className="h-[calc(100vh-160px)] bg-neutral-400 grid place-content-center place-self-center">
       <Toaster />
       <form
         className="bg-neutral-100 w-72 rounded-lg p-4"
