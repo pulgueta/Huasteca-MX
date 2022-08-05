@@ -70,7 +70,7 @@ export const ReportForm = ({
     <div
       className={
         toggleMap
-          ? "bg-neutral-300 w-80 md:w-[420px] py-4 px-6 lg:px-8 lg:py-6 rounded-lg drop-shadow-md h-max"
+          ? "bg-neutral-300 w-80 md:w-[420px] py-4 px-6 lg:px-8 m-10 lg:py-6 rounded-lg drop-shadow-md h-max"
           : "hidden"
       }
     >
