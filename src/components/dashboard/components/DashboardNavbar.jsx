@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaArrowDown, FaBars, FaTimes } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
+import { logOut } from "../../../utils/firebase";
 
 export const DashboardNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,9 @@ export const DashboardNavbar = () => {
             <Link to="/reporte-problemas" className="font-semibold text-neutral-100">
               Reporte de Problemas
             </Link>
+          </li>
+          <li className="mb-4">
+              <button className="p-2 bg-red-500 rounded-md font-semibold text-neutral-100" onClick={logOut}>Cerrar sesión</button>
           </li>
         </ul>
       </div>

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Footer, Navbar } from "../components";
+import { Footer } from "../components";
 import {
   Landing,
   SignUp,
@@ -14,7 +14,7 @@ import {
   ForgotPassword,
 } from "../views";
 
-import { PrivateRoute } from "./";
+// import { PrivateRoute } from "./";
 
 import { DashboardNavbar } from "../components/dashboard/components";
 import { Profile } from "../components/dashboard/ui";
@@ -24,7 +24,10 @@ export const AppRouter = () => {
 
   return (
     <>
-      {!logged ? <Navbar /> : <DashboardNavbar />}
+      {/* {!logged ? 
+      <Navbar /> :  */}
+      <DashboardNavbar />
+      {/* } */}
       <Routes>
         <Route index path="/" element={<Landing />} />
 
@@ -44,9 +47,9 @@ export const AppRouter = () => {
         <Route
           path="/perfil"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Profile />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
 
