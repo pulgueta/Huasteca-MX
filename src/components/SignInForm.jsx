@@ -3,21 +3,23 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import { signIn } from "../utils/firebase/signIn";
 import { useNavigate } from "react-router-dom";
 
+import { signIn } from "../utils/firebase/signIn";
+
 export const SignInForm = () => {
-  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     await signIn(user.email, user.password);
-    navigate("/", {
+    navigate("/perfil", {
       replace: true,
     });
     window.location.reload();
