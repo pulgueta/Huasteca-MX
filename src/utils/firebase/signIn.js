@@ -7,7 +7,7 @@ export const signIn = async (email, password) => {
     .then((user) => {
       return user
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err.message));
 };
 
 export const logOut = () => {

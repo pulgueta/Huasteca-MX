@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { FaUser } from "react-icons/fa";
 
@@ -12,6 +12,8 @@ export const SignInForm = () => {
     email: "",
     password: "",
   });
+
+  const ref = useRef();
 
   const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ export const SignInForm = () => {
         <FaUser className="text-3xl" />
         <h1 className="text-xl font-bold text-center mt-2">Iniciar sesión</h1>
       </div>
-      <form className="mt-6" onSubmit={handleLogin}>
+      <form className="mt-6" onSubmit={handleLogin} ref={ref}>
         <div>
           <label htmlFor="correo">Correo electrónico</label>
           <input
