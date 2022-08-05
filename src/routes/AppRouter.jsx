@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Footer, Layout, Navbar } from "../components";
+import { Footer, Navbar } from "../components";
 import {
   Landing,
   SignUp,
