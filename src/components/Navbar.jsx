@@ -96,7 +96,7 @@ export const Navbar = () => {
       <ul
         className={
           !isOpen
-            ? "absolute top-[64px] left-[-100%] w-screen h-[75vh] bg-huasteca-gray flex flex-col justify-center items-center ease-in duration-500"
+            ? "absolute top-[64px] left-[-150%] w-screen h-[75vh] bg-huasteca-gray flex flex-col justify-center items-center ease-in duration-500"
             : "absolute top-[64px] left-0 w-screen h-[75vh] z-10 bg-huasteca-gray shadow-sm flex flex-col justify-center items-center ease-out duration-700"
         }
       >
