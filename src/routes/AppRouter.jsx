@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Footer, Navigation } from "../components";
-import { Landing, SignUp, SignIn, Article, ArticleDetails, CulturalTour, CityReport, CulturalTourDetails, About, ForgotPassword, Perfil } from "../views";
+import { Landing, SignUp, SignIn, Article, ArticleDetails, CulturalTour, CityReport, CulturalTourDetails, About, ForgotPassword } from "../views";
 // import RequireAuth from "../components/RequireAuth";
 
 export const AppRouter = () => {

@@ -8,4 +8,3 @@ export * from "./culturalTour/CulturalTour";
 export * from "./culturalTour/CulturalTourDetails";
 export * from "./About";
 export * from "./ForgotPassword";
-export * from "./Perfil";
