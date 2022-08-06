@@ -16,10 +16,8 @@ export const SignInForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
     await signIn(user.email, user.password)
     navigate('/')
-
   };
 
   return (
