@@ -1,7 +1,6 @@
-import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AddArticle, AddModal, ArticleTable } from "../components";
+import { AddModal, ArticleTable } from "../components";
 
 export const ArticleMonitor = () => {
   const [modal, setModal] = useState(false);
