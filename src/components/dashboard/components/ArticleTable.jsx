@@ -1,6 +1,7 @@
+
 export const ArticleTable = () => {
   return (
-    <table className="min-w-full divide-y divide-gray-200 rounded-md">
+    <table className="min-w-full divide-y divide-gray-200">
       <thead className="bg-gray-50">
         <tr>
           <th
@@ -47,12 +48,12 @@ export const ArticleTable = () => {
             jonne62@gmail.com
           </td>
           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a className="text-green-500 hover:text-green-700" href="#">
+            <a className="text-green-500 hover:text-green-700" href="https://youtube.com/">
               Edit
             </a>
           </td>
           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a className="text-red-500 hover:text-red-700" href="#">
+            <a className="text-red-500 hover:text-red-700" href="https://youtube.com/">
               Delete
             </a>
           </td>
@@ -68,12 +69,12 @@ export const ArticleTable = () => {
             jonne62@gmail.com
           </td>
           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a className="text-green-500 hover:text-green-700" href="#">
+            <a className="text-green-500 hover:text-green-700" href="https://youtube.com/">
               Edit
             </a>
           </td>
           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a className="text-red-500 hover:text-red-700" href="#">
+            <a className="text-red-500 hover:text-red-700" href="https://youtube.com/">
               Delete
             </a>
           </td>
@@ -89,12 +90,12 @@ export const ArticleTable = () => {
             jonne62@gmail.com
           </td>
           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a className="text-green-500 hover:text-green-700" href="#">
+            <a className="text-green-500 hover:text-green-700" href="https://youtube.com/">
               Edit
             </a>
           </td>
           <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a className="text-red-500 hover:text-red-700" href="#">
+            <a className="text-red-500 hover:text-red-700" href="https://youtube.com/">
               Delete
             </a>
           </td>
