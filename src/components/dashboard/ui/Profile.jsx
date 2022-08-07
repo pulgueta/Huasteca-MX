@@ -20,7 +20,7 @@ export const Profile = () => {
 
   return (
     <div className="min-h-[calc(100vh-56px)] bg-neutral-300 flex items-center justify-center">
-      <div className="w-80 md:w-[640px] p-4 md:p-8 bg-neutral-400 rounded-lg shadow-md">
+      <div className="w-80 md:w-[640px] p-4 md:p-8 bg-neutral-400 rounded-lg shadow-md my-10">
         <h1 className="text-center font-bold text-xl">Información</h1>
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="dashinput">

@@ -50,39 +50,27 @@ export const Navbar = () => {
         <li className="nav-link">
           <Link to="/acerca-de">Acerca de CAIH</Link>
         </li>
-        {userLog ? (
-          <div className="flex items-center">
-            <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
-              <div className="flex items-center">
-                <button className="flex  items-center mr-1" onClick={logOut}>
-                  <FaSignInAlt className="mr-1" />
-                  Cerrar sesión
-                </button>
-              </div>
-            </li>
-          </div>
-        ) : (
-          <div className="flex items-center">
-            <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
-              <Link
-                to="/inicio-sesion"
-                className="flex items-center lg:text-xs xl:text-base"
-              >
-                <FaSignInAlt className="mr-1 lg:hidden xl:block" />
-                Iniciar sesión
-              </Link>
-            </li>
-            <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
-              <Link
-                to="/registro"
-                className="flex items-center lg:text-xs xl:text-base"
-              >
-                <FaSignInAlt className="mr-1 lg:hidden xl:block" />
-                Registrar
-              </Link>
-            </li>
-          </div>
-        )}
+
+        <div className="flex items-center">
+          <li className="bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md">
+            <Link
+              to="/inicio-sesion"
+              className="flex items-center lg:text-xs xl:text-base"
+            >
+              <FaSignInAlt className="mr-1 lg:hidden xl:block" />
+              Iniciar sesión
+            </Link>
+          </li>
+          <li className="bg-huasteca-orange hover:bg-orange-400 transition-all duration-200 text-neutral-100 font-medium px-3 py-2 rounded-md ml-4">
+            <Link
+              to="/registro"
+              className="flex items-center lg:text-xs xl:text-base"
+            >
+              <FaSignInAlt className="mr-1 lg:hidden xl:block" />
+              Registrar
+            </Link>
+          </li>
+        </div>
       </ul>
 
       <div className="text-xl lg:hidden z-10" onClick={handleClick}>

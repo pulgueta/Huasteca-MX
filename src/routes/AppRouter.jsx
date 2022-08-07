@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Footer } from "../components";
+import { Footer, Navbar, Navigation } from "../components";
 import {
   Landing,
   SignUp,
@@ -14,20 +14,18 @@ import {
   ForgotPassword,
 } from "../views";
 
-// import { PrivateRoute } from "./";
+import RequireAuth from "../components/RequireAuth";
 
 import { DashboardNavbar } from "../components/dashboard/components";
-import { Profile } from "../components/dashboard/ui";
+import { Profile, ArticleMonitor } from "../components/dashboard/ui";
 
 export const AppRouter = () => {
   const logged = localStorage.getItem("user") ?? "";
 
   return (
     <>
-      {/* {!logged ? 
-      <Navbar /> :  */}
-      <DashboardNavbar />
-      {/* } */}
+      {!logged ? <Navbar /> : <DashboardNavbar />}
+
       <Routes>
         <Route index path="/" element={<Landing />} />
 
@@ -43,18 +41,26 @@ export const AppRouter = () => {
         <Route path="/reportes-ciudadanos" element={<CityReport />} />
         <Route path="/acerca-de" element={<About />} />
         <Route path="/restablecer" element={<ForgotPassword />} />
-
         <Route
           path="/perfil"
           element={
-            // <PrivateRoute>
+            <RequireAuth>
               <Profile />
-            // </PrivateRoute>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/monitor-articulos"
+          element={
+            <RequireAuth>
+              <ArticleMonitor />
+            </RequireAuth>
           }
         />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      
       {!logged && <Footer />}
     </>
   );
