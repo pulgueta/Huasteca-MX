@@ -29,4 +29,8 @@
     .flexlab {
         @apply flex items-center;
     }
+
+    .dashinput {
+        @apply flex flex-col mb-4 md:flex-row md:items-center md:justify-around md:mb-6;
+    }
 }

@@ -7,16 +7,19 @@ import { HelmetProvider } from "react-helmet-async";
 import { App } from "./App";
 
 import reportWebVitals from "./reportWebVitals";
+import AuthProvider from "./contexts/AuthProvider";
 
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelmetProvider>
-      <BrowserRouter>
+    <AuthProvider>
+      <HelmetProvider>
+        <BrowserRouter>
           <App />
-      </BrowserRouter>
-    </HelmetProvider>
+        </BrowserRouter>
+      </HelmetProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
