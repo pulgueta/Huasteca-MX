@@ -1,7 +1,7 @@
 export const ArticleMonitor = () => {
   return (
     <div>
-      <h1>Puchi quiero chichi</h1>
+      <h1>Puchisita</h1>
     </div>
   );
 };
