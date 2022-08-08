@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 export const Profile = () => {
+  const [edit, setEdit] = useState(false);
+
   const [updateProfile, setUpdateProfile] = useState({
     name: "",
     dadSurname: "",
@@ -27,6 +29,7 @@ export const Profile = () => {
             <input
               type="text"
               value={updateProfile.name}
+              disabled={!edit ? true : false}
               onChange={(e) =>
                 setUpdateProfile({ ...updateProfile, name: e.target.value })
               }
@@ -36,6 +39,7 @@ export const Profile = () => {
 
             <input
               type="text"
+              disabled={!edit ? true : false}
               value={updateProfile.dadSurname}
               onChange={(e) =>
                 setUpdateProfile({
@@ -51,6 +55,7 @@ export const Profile = () => {
             <input
               type="text"
               value={updateProfile.momSurname}
+              disabled={!edit ? true : false}
               onChange={(e) =>
                 setUpdateProfile({
                   ...updateProfile,
@@ -63,6 +68,7 @@ export const Profile = () => {
             <input
               type="text"
               value={updateProfile.email}
+              disabled={!edit ? true : false}
               onChange={(e) =>
                 setUpdateProfile({
                   ...updateProfile,
@@ -78,6 +84,7 @@ export const Profile = () => {
             <input
               type="tel"
               value={updateProfile.phone}
+              disabled={!edit ? true : false}
               onChange={(e) =>
                 setUpdateProfile({
                   ...updateProfile,
@@ -90,6 +97,7 @@ export const Profile = () => {
             <input
               type="text"
               value={updateProfile.studiesLevel}
+              disabled={!edit ? true : false}
               onChange={(e) =>
                 setUpdateProfile({
                   ...updateProfile,
@@ -107,6 +115,7 @@ export const Profile = () => {
                 Carta motivos:
               </label>
               <input
+                disabled={!edit ? true : false}
                 type="file"
                 accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 name="carta-motivos"
@@ -131,10 +140,22 @@ export const Profile = () => {
           </div>
 
           <button
-            type="submit"
-            className="w-full mt-4 bg-blue-500 p-2 rounded-md font-bold text-neutral-100"
+            type="button"
+            onClick={() => setEdit(!edit)}
+            className="w-full mt-4 bg-yellow-500 p-2 rounded-md font-bold text-neutral-100"
           >
-            Enviar
+            Editar
+          </button>
+          <button
+            disabled={!edit ? true : false}
+            type="submit"
+            className={
+              edit
+                ? "w-full mt-4 bg-blue-500 p-2 rounded-md font-bold text-neutral-100"
+                : "w-full mt-4 bg-blue-200 p-2 rounded-md font-bold text-neutral-100"
+            }
+          >
+            Actualizar
           </button>
         </form>
       </div>

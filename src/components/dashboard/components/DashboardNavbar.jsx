@@ -74,7 +74,7 @@ export const DashboardNavbar = () => {
       {menu && (
         <div className="absolute flex flex-col bg-neutral-500 rounded-b-md md:right-[204px] lg:right-72 lg:py-4 lg:px-8 md:py-2 md:px-4">
           <Link
-            to="/monitor-articulos"
+            to="/perfil/monitor-articulos"
             onClick={() => setMenu(false)}
             className="py-2 md:text-sm lg:text-base text-neutral-100"
           >
