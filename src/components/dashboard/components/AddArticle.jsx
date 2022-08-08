@@ -7,7 +7,7 @@ export const AddArticle = () => {
         Agregar artículo
       </button>
       <Link
-        to="/monitor-articulos/espera"
+        to="/perfil/monitor-articulos/espera"
         className="mb-2 font-semibold underline"
       >
         Artículos en espera

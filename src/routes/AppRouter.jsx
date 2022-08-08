@@ -50,7 +50,7 @@ export const AppRouter = () => {
           }
         />
         <Route
-          path="/monitor-articulos"
+          path="/perfil/monitor-articulos"
           element={
             <RequireAuth>
               <ArticleMonitor />
