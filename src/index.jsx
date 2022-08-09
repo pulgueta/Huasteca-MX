@@ -10,6 +10,7 @@ import reportWebVitals from "./reportWebVitals";
 import AuthProvider from "./contexts/AuthProvider";
 
 import "./index.css";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
