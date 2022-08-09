@@ -17,7 +17,11 @@ import {
 import RequireAuth from "../components/RequireAuth";
 
 import { DashboardNavbar } from "../components/dashboard/components";
-import { Profile, ArticleMonitor } from "../components/dashboard/ui";
+import {
+  Profile,
+  ArticleMonitor,
+  ProblemReport,
+} from "../components/dashboard/ui";
 
 export const AppRouter = () => {
   const logged = localStorage.getItem("user") ?? "";
@@ -57,10 +61,18 @@ export const AppRouter = () => {
             </RequireAuth>
           }
         />
+        <Route
+          path="/perfil/reportar-problema"
+          element={
+            <RequireAuth>
+              <ProblemReport />
+            </RequireAuth>
+          }
+        />
 
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to={!logged ? "/" : "/perfil"} />} />
       </Routes>
-      
+
       {!logged && <Footer />}
     </>
   );

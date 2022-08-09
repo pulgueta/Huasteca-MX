@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AddModal } from "../components";
+import { AddModal, ArticleTable } from "../components";
 
 export const ArticleMonitor = () => {
   const [modal, setModal] = useState(false);
@@ -24,7 +24,7 @@ export const ArticleMonitor = () => {
           </Link>
         </div>
 
-        {/* <ArticleTable /> */}
+        <ArticleTable />
       </div>
     </div>
   );

@@ -53,7 +53,7 @@ export const DashboardNavbar = () => {
           </li>
           <li className="md:ml-4 lg:ml-8">
             <Link
-              to="/perfil"
+              to="/perfil/reportar-problema"
               className="font-semibold md:text-sm lg:text-base text-neutral-100"
             >
               Reporte de problemas
@@ -72,7 +72,7 @@ export const DashboardNavbar = () => {
       </nav>
 
       {menu && (
-        <div className="absolute flex flex-col bg-neutral-500 rounded-b-md md:right-[204px] lg:right-72 lg:py-4 lg:px-8 md:py-2 md:px-4">
+        <div className="absolute flex flex-col bg-neutral-500 z-10 rounded-b-md md:right-[204px] lg:right-72 lg:py-4 lg:px-8 md:py-2 md:px-4">
           <Link
             to="/perfil/monitor-articulos"
             onClick={() => setMenu(false)}
