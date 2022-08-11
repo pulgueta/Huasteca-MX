@@ -19,7 +19,7 @@ export const AcceptedArticles = () => {
           Agregar artículo
         </button>
       </div>
-      <div className="px-8 md:px-12 lg:px-20">
+      <div className="px-8 md:px-12 lg:px-20 text-center">
         <Table>
           <Thead>
             <Tr>
