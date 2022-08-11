@@ -64,7 +64,8 @@ export const ArticleTable = () => {
       style: {
         paddingLeft: '8px', // override the cell padding for head cells
         paddingRight: '8px',
-        backgroundColor: '#e5e5e5'
+        backgroundColor: '#404040',
+        color: 'white'
       },
     },
     cells: {
