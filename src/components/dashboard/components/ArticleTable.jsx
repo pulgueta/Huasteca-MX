@@ -5,51 +5,87 @@ export const ArticleTable = () => {
 
   const columns = [
     {
-      name: 'Event',
-      selector: row => row.Event,
+      name: '#Id',
+      selector: row => row.id,
     },
     {
-      name: 'Date',
-      selector: row => row.Date,
+      name: 'Título',
+      selector: row => row.title,
     },
     {
-      name: 'Location',
-      selector: row => row.Location,
+      name: 'Fecha',
+      selector: row => row.date,
     },
     {
-      name: 'Date2',
-      selector: row => row.Date2,
+      name: 'Contenido',
+      selector: row => row.content,
     },
     {
-      name: 'Location2',
-      selector: row => row.Location2,
+      name: 'Imagen',
+      selector: row => row.image,
+    },
+    {
+      name: 'Arquitecto/Ing.',
+      selector: row => row.autor,
     },
   ];
 
   const data = [
     {
       id: 1,
-      Event: 'Beetlejuice',
-      Location: 'Beetlejuice',
-      Date: '1988',
-      Location2: 'Beetlejuice',
-      Date2: '1988',
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
     },
     {
       id: 2,
-      Event: 'Beetlejuice',
-      Location: 'Beetlejuice',
-      Date: '1988',
-      Location2: 'Beetlejuice',
-      Date2: '1988',
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
     },
     {
       id: 3,
-      Event: 'Beetlejuice',
-      Location: 'Beetlejuice',
-      Date: '1988',
-      Location2: 'Beetlejuice',
-      Date2: '1988',
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
+    },
+    {
+      id: 4,
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
+    },
+    {
+      id: 5,
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
+    },
+    {
+      id: 6,
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
+    },
+    {
+      id: 7,
+      title: 'Beetlejuice',
+      date: 'Beetlejuice',
+      content: '1988',
+      image: 'Beetlejuice',
+      autor: '1988',
     }
   ]
 
