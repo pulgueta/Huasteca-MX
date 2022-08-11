@@ -21,6 +21,7 @@ import {
   Profile,
   ArticleMonitor,
   ProblemReport,
+  AcceptedArticles,
 } from "../components/dashboard/ui";
 
 export const AppRouter = () => {
@@ -66,6 +67,14 @@ export const AppRouter = () => {
           element={
             <RequireAuth>
               <ProblemReport />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/articulos-aceptados"
+          element={
+            <RequireAuth>
+              <AcceptedArticles />
             </RequireAuth>
           }
         />

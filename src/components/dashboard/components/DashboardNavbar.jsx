@@ -81,7 +81,7 @@ export const DashboardNavbar = () => {
             Monitor de Artículos
           </Link>
           <Link
-            to="/lista-articulos"
+            to="/perfil/articulos-aceptados"
             onClick={() => setMenu(false)}
             className="py-2 md:text-sm lg:text-base text-neutral-100"
           >
@@ -109,10 +109,10 @@ export const DashboardNavbar = () => {
             </button>
             {subMenu && (
               <div className="my-4 w-full px-2 rounded-md text-neutral-100 bg-neutral-600 flex flex-col items-center justify-between h-full">
-                <Link to="monitor-articulos" className="py-2">
+                <Link to="/perfil/monitor-articulos" className="py-2">
                   Monitor de Artículos
                 </Link>
-                <Link to="lista-articulos" className="py-2">
+                <Link to="/perfil/articulos-aceptados" className="py-2">
                   Lista de Artículos Aceptados
                 </Link>
               </div>
