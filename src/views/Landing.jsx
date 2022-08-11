@@ -1,8 +1,18 @@
 import Huejutla from "../static/huejutla.jpg";
 
 import { Toaster } from "react-hot-toast";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Landing = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      navigate('/perfil')
+    }
+  }, [navigate])
+
 
   return (
     <div className="min-h-screen bg-neutral-400">

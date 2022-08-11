@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 import { signIn } from "../utils/firebase/signIn";
 
+export let passwordUser = ''
+
 export const SignInForm = () => {
   const [user, setUser] = useState({
     email: "",
@@ -19,6 +21,8 @@ export const SignInForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    passwordUser = user.password
 
     await signIn(user.email, user.password);
     navigate("/perfil", {

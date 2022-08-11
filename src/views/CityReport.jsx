@@ -9,6 +9,8 @@ import { ReportForm } from "../components";
 let center = { lat: 7.067744476074094, lng: -73.85680068055541 };
 
 export const CityReport = () => {
+
+  const user = localStorage.getItem('user') ?? ""
   const [toggleMap, setToggleMap] = useState(true);
 
   const { isLoaded } = useJsApiLoader({
@@ -83,6 +85,7 @@ export const CityReport = () => {
           reload={reload}
           setReload={setReload}
           toggleMap={toggleMap}
+          user={user}
         />
       </GoogleMap>
     </>
