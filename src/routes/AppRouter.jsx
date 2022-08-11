@@ -21,7 +21,10 @@ import {
   Profile,
   ArticleMonitor,
   ProblemReport,
+  AcceptedArticles,
 } from "../components/dashboard/ui";
+
+import { MemberAdmin } from "../components/dashboard/ui/contentGenerator";
 
 export const AppRouter = () => {
   const logged = localStorage.getItem("user") ?? "";
@@ -66,6 +69,22 @@ export const AppRouter = () => {
           element={
             <RequireAuth>
               <ProblemReport />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/articulos-aceptados"
+          element={
+            <RequireAuth>
+              <AcceptedArticles />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/administracion"
+          element={
+            <RequireAuth>
+              <MemberAdmin />
             </RequireAuth>
           }
         />
