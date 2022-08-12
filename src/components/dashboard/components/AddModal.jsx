@@ -42,7 +42,6 @@ export const AddModal = ({ toggle }) => {
   }
 
   const saveImages = async (files, main) => {
-    console.log('files, main', files, main)
     if (!main && !create.images) {
       toast.error("Selecciona las imagenes!")
       toggle()
@@ -138,7 +137,6 @@ export const AddModal = ({ toggle }) => {
                   type="file"
                   accept="image/*"
                   multiple
-                  // value={create.images}
                   onChange={(e) =>
                     setCreate({ ...create, images: e.target.files })
                   }
@@ -164,7 +162,6 @@ export const AddModal = ({ toggle }) => {
                 <input
                   type="file"
                   accept="image/*"
-                  // value={create.mainImage}
                   onChange={(e) =>
                     setCreate({ ...create, mainImage: e.target.files })
                   }

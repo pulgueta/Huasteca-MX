@@ -65,8 +65,6 @@ export const ReportForm = ({
     );
 
     setImagesUrl(await arrayImages);
-    // if (arrayImages.length > 0) {
-    // }
   };
 
   return (

@@ -2,16 +2,25 @@
 // import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import DataTable from 'react-data-table-component';
 import { useState } from 'react';
+import { ImageSlider } from './ImageSlider';
 
 export const ArticleTable = ({ dataArticles }) => {
 
   const [disabled, setDisabled] = useState(true)
   const [selectedRows, setSelectedRows] = useState({})
-  const [link, setLink] = useState('')
+  // const [link, setLink] = useState('')
+  const [modal, setModal] = useState(false);
+  const [images, setImages] = useState([])
 
   const handleViewData = (prop) => {
-    if (prop === 'mainImage') return setLink(selectedRows[prop])
-    console.log('selectedRows[prop]', selectedRows[prop])
+    if (prop === 'images') {
+      setImages(selectedRows[prop])
+    } else {
+      const array = []
+      array.push(selectedRows[prop])
+      setImages(array)
+    }
+    setModal(true)
   }
 
   const columns = [
@@ -101,30 +110,31 @@ export const ArticleTable = ({ dataArticles }) => {
   }
 
   return (
-    <div className="w-screen px-4 md:px-14 lg:px-24">
-      <h1 className="text-xl font-bold text-center my-10 drop-shadow">
-        Artículos en espera
-      </h1>
-      <span>
-        <a href={link} target="_blank">
-          <button type='button' disabled={disabled} className={`${disabled ? 'bg-slate-400' : 'bg-huasteca-brown'} py-2 px-4 mx-auto rounded-md text-neutral-100 font-bold float-right`} onClick={() => handleViewData('mainImage')}>
+    <>
+      {modal && <ImageSlider toggle={() => setModal(false)} images={images} />}
+      <div className="w-screen px-4 md:px-14 lg:px-24">
+        <h1 className="text-xl font-bold text-center my-10 drop-shadow">
+          Artículos en espera
+        </h1>
+        <div className='flex flex-row gap-2 justify-end'>
+          <button disabled={disabled ? true : false} className={`${disabled ? 'bg-slate-400' : 'bg-huasteca-brown'} h-full py-2 px-4 mb-2 rounded-md text-neutral-100 font-bold`} onClick={() => handleViewData('mainImage')}>
             Ver Imagen pricipal
           </button>
-        </a>
-      </span>
-      <button type='button' disabled={disabled} className={`${disabled ? 'bg-slate-400' : 'bg-huasteca-brown'} py-2 px-4 mr-2 mx-auto rounded-md text-neutral-100 font-bold float-right`} onClick={() => handleViewData('images')}>
-        Ver Imagenes
-      </button>
-      <h1 className="text-lg font-medium text-left my-5 drop-shadow">
-        Selecciona el articulo con el que quieres interactuar
-      </h1>
-      <DataTable
-        customStyles={customStyles}
-        columns={columns}
-        data={dataArticles}
-        selectableRows
-        onSelectedRowsChange={(state) => handleChange(state)}
-      />
-    </div>
+          <button disabled={disabled ? true : false} className={`${disabled ? 'bg-slate-400' : 'bg-huasteca-brown'} h-full py-2 px-4 mr-2 mb-2 rounded-md text-neutral-100 font-bold`} onClick={() => handleViewData('images')}>
+            Ver Imagenes
+          </button>
+        </div>
+        <h1 className="text-lg font-medium text-left my-5 drop-shadow">
+          Selecciona el articulo con el que quieres interactuar
+        </h1>
+        <DataTable
+          customStyles={customStyles}
+          columns={columns}
+          data={dataArticles}
+          selectableRows
+          onSelectedRowsChange={(state) => handleChange(state)}
+        />
+      </div>
+    </>
   );
 };

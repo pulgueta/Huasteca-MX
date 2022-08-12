@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaMapMarker, FaCalendar } from "react-icons/fa";
 
 import { addDocs } from "../../../utils/firebase";
-// import { UploadImages } from "../../../utils/firebase";
+import { UploadImages } from "../../../utils/firebase";
 
 import toast from "react-hot-toast";
 
@@ -13,57 +13,85 @@ export const RegisterForm = ({
   reload,
   setReload,
   toggleMap,
+  handleMyLocation
 }) => {
   const [images, setImages] = useState(null);
-  const [imagesUrl, setImagesUrl] = useState([]);
-  const [problem, setProblem] = useState("");
-  const [/*error,*/ setError] = useState(false);
+  const [mainImage, setMainImage] = useState(null)
+  const [autor, setAutor] = useState('')
+  const [date, setDate] = useState('')
+  const [detecto, setDetecto] = useState('')
+  const [description, setDescription] = useState('')
 
   const handleSubmit = async () => {
     if (
       !locationCenter.lat ||
       !locationCenter.lng ||
-      imagesUrl.length === 0 ||
-      problem === "" ||
-      images === null
+      images.length === 0 ||
+      mainImage === 0 ||
+      images === null ||
+      mainImage === null ||
+      autor === '' ||
+      date === '' ||
+      detecto === '' ||
+      description === ''
     )
       return toast.error("Debes Completar el formulario!");
 
     let data = {
       lat: locationCenter.lat,
       lng: locationCenter.lng,
-      images: imagesUrl,
-      problem: problem,
+      images: images,
+      mainImage: mainImage[0],
       state: "pending",
+      autor: autor,
+      date: date,
+      detecto: detecto,
+      description: description
     };
 
+    await addDocs("places", data);
+    toast.success("Lugar registrado!");
+
     setImages(null);
-    setImagesUrl(null);
-    setProblem("");
-    setError(false);
+    setMainImage(null);
+    setAutor("");
+    setDate("");
+    setDetecto("");
     setLocationCenter(null);
     setReload(!reload);
 
-    await addDocs("cityReports", data);
-    toast.success("Reporte subido!");
   };
 
-  // const uploadImagesStorage = async () => {
-  //   if (images === null) return toast.error("Debes subir primero tus images!");
+  const saveImages = async (files, main) => {
+    if (!main && !images) {
+      toast.error("Selecciona las imagenes!")
+      return
+    }
+    if (main && !mainImage) {
+      toast.error("Selecciona las imagenes!")
+      return
+    }
 
-  //   const arrayImages = await toast.promise(
-  //     UploadImages("reportImages", images),
-  //     {
-  //       loading: "Guardando...",
-  //       success: "¡Imagenes guardadas!",
-  //       error: "¡Algo salió mal!",
-  //     }
-  //   );
-
-  //   if (arrayImages.length > 0) {
-  //     setImagesUrl(arrayImages);
-  //   }
-  // };
+    if (!main) {
+      const arrayImages = toast.promise(UploadImages("registerPlaces", files),
+        {
+          loading: "Guardando...",
+          success: "¡Imagenes guardadas!",
+          error: "¡Algo salió mal!",
+        }
+      );
+      setImages(await arrayImages)
+    } else {
+      const arrayImages = toast.promise(UploadImages("articleImages", files),
+        {
+          loading: "Guardando...",
+          success: "¡Imagenes guardadas!",
+          error: "¡Algo salió mal!",
+        }
+      );
+      setMainImage(await arrayImages)
+    }
+  }
 
   return (
     <div
@@ -115,25 +143,18 @@ export const RegisterForm = ({
           Título
           <input
             type="text"
-            // value={
-            //   locationCenter && locationCenter.lng ? locationCenter.lng : ""
-            // }
-            // onChange={(e) =>
-            //   setLocationCenter((locationCenter) => ({
-            //     ...locationCenter,
-            //     lng: parseFloat(e.target.value),
-            //   }))
-            // }
+            value={autor}
+            onChange={(e) => setAutor(e.target.value)}
             placeholder="El pintor..."
             className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
         </label>
-        {/* <button
+        <button
           onClick={handleMyLocation}
           className="w-full bg-green-600 mt-4 p-3 rounded-md shadow-md text-neutral-100 font-semibold hover:bg-green-500 transition-all duration-300"
         >
           Localizar mi ubicación
-        </button> */}
+        </button>
         <div className="mt-4">
           <label htmlFor="imagen" className="flexlab font-medium">
             <FaCalendar className="mr-2" />
@@ -142,13 +163,15 @@ export const RegisterForm = ({
           <div className="flex flex-col">
             <input
               type="date"
-              onChange={(e) => setImages(e.target.files)}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               className="w-full h-10 rounded-md text-sm px-2 bg-neutral-100 mt-2"
             />
             <input
               type="text"
               placeholder="Se detectó..."
-              //   onChange={(e) => setImages(e.target.files)}
+              value={detecto}
+              onChange={(e) => setDetecto(e.target.value)}
               className="w-full h-10 rounded-md text-sm px-2 bg-neutral-100 mt-2"
             />
           </div>
@@ -156,26 +179,53 @@ export const RegisterForm = ({
             <label htmlFor="imagen principal" className="font-bold text-md">
               Foto principal
             </label>
-            <input
-              type="file"
-              accept="image/*"
-              //   value={create.mainImage}
-              //   onChange={(e) =>
-              //     setCreate({ ...create, mainImage: e.target.value })
-              //   }
-              className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400"
-            />
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setMainImage(e.target.files)
+                }
+                className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400"
+              />
+              <button
+                type="button"
+                onClick={() => saveImages(mainImage, true)}
+                className="bg-green-600 py-2 px-4 mx-auto rounded-md text-neutral-100 font-bold float-right"
+              >
+                Subir
+              </button>
+            </div>
             <label htmlFor="fotos adicionales" className="font-bold text-md">
               Fotos adicionales
             </label>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              // value={create.images}
-              // onChange={(e) => setCreate({ ...create, images: e.target.value })}
-              className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400"
-            />
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => setImages(e.target.files)}
+                className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400"
+              />
+              <button
+                type="button"
+                onClick={() => saveImages(images, false)}
+                className="bg-green-600 py-2 px-4 mx-auto rounded-md text-neutral-100 font-bold float-right"
+              >
+                Subir
+              </button>
+            </div>
+            <label
+              htmlFor="descripcion"
+              className="flexlab font-medium mt-4 mb-2"
+            >
+              Descripción del problema
+            </label>
+            <textarea
+              name="problema"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="rounded-md py-2 px-4 w-full min-h-[100px]"
+            ></textarea>
           </div>
           <button
             onClick={handleSubmit}
