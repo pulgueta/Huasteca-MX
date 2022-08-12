@@ -24,7 +24,7 @@ import {
   AcceptedArticles,
 } from "../components/dashboard/ui";
 
-import { MemberAdmin } from "../components/dashboard/ui/contentGenerator";
+import { MemberAdmin, NewPlace } from "../components/dashboard/ui/contentGenerator";
 
 export const AppRouter = () => {
   const logged = localStorage.getItem("user") ?? "";
@@ -77,6 +77,14 @@ export const AppRouter = () => {
           element={
             <RequireAuth>
               <AcceptedArticles />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/registrar-lugar"
+          element={
+            <RequireAuth>
+              <NewPlace />
             </RequireAuth>
           }
         />
