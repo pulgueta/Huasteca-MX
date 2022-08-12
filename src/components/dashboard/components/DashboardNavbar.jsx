@@ -93,7 +93,11 @@ export const DashboardNavbar = () => {
       <div className={isOpen ? "bg-huasteca-gray h-max w-screen" : "hidden"}>
         <ul className="p-4 flex flex-col items-center text-center">
           <li className="mb-4" onClick={() => setIsOpen(false)}>
-            <Link to="/perfil" className="font-semibold text-neutral-100">
+            <Link
+              to="/perfil"
+              onClick={() => setSubMenu(!subMenu)}
+              className="font-semibold text-neutral-100"
+            >
               Inicio
             </Link>
           </li>
@@ -109,10 +113,18 @@ export const DashboardNavbar = () => {
             </button>
             {subMenu && (
               <div className="my-4 w-full px-2 rounded-md text-neutral-100 bg-neutral-600 flex flex-col items-center justify-between h-full">
-                <Link to="/perfil/monitor-articulos" className="py-2">
+                <Link
+                  to="/perfil/monitor-articulos"
+                  onClick={() => {setSubMenu(!subMenu); setIsOpen(false)}}
+                  className="py-2"
+                >
                   Monitor de Artículos
                 </Link>
-                <Link to="/perfil/articulos-aceptados" className="py-2">
+                <Link
+                  to="/perfil/articulos-aceptados"
+                  onClick={() => {setSubMenu(!subMenu); setIsOpen(false)}}
+                  className="py-2"
+                >
                   Lista de Artículos Aceptados
                 </Link>
               </div>
@@ -121,6 +133,7 @@ export const DashboardNavbar = () => {
           <li className="mb-4" onClick={() => setIsOpen(false)}>
             <Link
               to="/reporte-problemas"
+              onClick={() => setSubMenu(!subMenu)}
               className="font-semibold text-neutral-100"
             >
               Reporte de Problemas
