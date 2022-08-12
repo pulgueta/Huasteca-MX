@@ -1,68 +1,39 @@
 import { ArticleCard } from "../../components";
-
-import Nani from "../../static/nani.jpg";
-import Nani2 from "../../static/nani2.jpg";
-import Nani3 from "../../static/nani3.jpg";
-import Nani4 from "../../static/nani4.jpg";
-import Nani5 from "../../static/nani5.jpeg";
+import { useState, useEffect } from "react";
+import { queryData } from "../../utils/firebase";
 
 export const Article = () => {
-  const fakeData = [
-    {
-      id: "1",
-      title: "Lorem ipsum dolor sit amet.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      dateLastUpdate: new Date(),
-      img: Nani,
-    },
-    {
-      id: "2",
-      title: "Lorem ipsum dolor sit amet.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      dateLastUpdate: new Date(),
-      img: Nani2,
-    },
-    {
-      id: "3",
-      title: "Lorem ipsum dolor sit amet.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      dateLastUpdate: new Date(),
-      img: Nani3,
-    },
-    {
-      id: "4",
-      title: "Lorem ipsum dolor sit amet.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      dateLastUpdate: new Date(),
-      img: Nani4,
-    },
-    {
-      id: "5",
-      title: "Lorem ipsum dolor sit amet.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      dateLastUpdate: new Date(),
-      img: Nani,
-    },
-    {
-      id: "6",
-      title: "Lorem ipsum dolor sit amet.",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-      dateLastUpdate: new Date(),
-      img: Nani5,
-    },
-  ];
+  const [dataArticles, setDataArticles] = useState([])
+
+  useEffect(() => {
+    const getData = async () => {
+      const docs = await queryData('articles')
+      const data = docs
+      const array = []
+      data.forEach(element => {
+        if (element.data().state === 'Activo') {
+          array.push({
+            id: element.id,
+            ...element.data()
+          })
+        }
+      });
+      setDataArticles(array)
+    }
+    getData()
+  }, [])
 
   return (
-    <div className="h-full py-10 px-5 bg-neutral-400 flex flex-col items-center md:px-10 md:h-full md:py-16 lg:h-full lg:grid lg:grid-cols-2 lg:gap-10">
-      {fakeData &&
-        fakeData.map(({ id, img, title, description, dateLastUpdate }) => {
+    <div className={`${dataArticles.length < 2 ? 'h-screen' : 'h-full'} py-10 px-5 bg-neutral-400 flex flex-col items-center md:px-10 md:${dataArticles.length < 2 ? 'h-screen' : 'h-full'} md:py-16 lg:${dataArticles.length < 2 ? 'h-screen' : 'h-full'} lg:grid lg:grid-cols-2 lg:gap-10`}>
+      {dataArticles.length > 0 &&
+        dataArticles.map(({ id, mainImage, title, description, date }) => {
           return (
             <ArticleCard
               key={id}
-              image={img}
+              image={mainImage}
               title={title}
               description={description}
-              date={dateLastUpdate}
+              date={date}
               redirect={id}
             />
           );

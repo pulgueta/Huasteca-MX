@@ -14,6 +14,7 @@ export const DashboardReport = ({
   reload,
   setReload,
   toggleMap,
+  user,
 }) => {
   const [images, setImages] = useState(null);
   const [imagesUrl, setImagesUrl] = useState([]);
@@ -21,6 +22,7 @@ export const DashboardReport = ({
   const [error, setError] = useState(false);
 
   const handleSubmit = async () => {
+    console.log({ locationCenter, imagesUrl, problem, images });
     if (
       !locationCenter.lat ||
       !locationCenter.lng ||
@@ -36,6 +38,7 @@ export const DashboardReport = ({
       images: imagesUrl,
       problem: problem,
       state: "pending",
+      reportingUser: user ? user : 'No user'
     };
 
     setImages(null);
@@ -52,7 +55,7 @@ export const DashboardReport = ({
   const uploadImagesStorage = async () => {
     if (images === null) return toast.error("Debes subir primero tus images!");
 
-    const arrayImages = await toast.promise(
+    const arrayImages = toast.promise(
       UploadImages("reportImages", images),
       {
         loading: "Guardando...",
@@ -61,9 +64,10 @@ export const DashboardReport = ({
       }
     );
 
-    if (arrayImages.length > 0) {
-      setImagesUrl(arrayImages);
-    }
+    setImagesUrl(await arrayImages);
+    // if (arrayImages.length > 0) {
+    //   console.log('first')
+    // }
   };
 
   return (
@@ -121,9 +125,8 @@ export const DashboardReport = ({
         <div className="mt-4">
           <label
             htmlFor="imagen"
-            className={`flexlab font-medium ${
-              error && images === null && "text-red-700"
-            }`}
+            className={`flexlab font-medium ${error && images === null && "text-red-700"
+              }`}
           >
             <FaCamera className="mr-2" />
             {"Foto"}

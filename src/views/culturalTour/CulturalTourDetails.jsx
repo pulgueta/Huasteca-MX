@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
-import Nani from "../../static/nani.jpg";
-import Nani2 from "../../static/nani2.jpg";
-import Nani3 from "../../static/nani3.jpg";
-import Nani4 from "../../static/nani4.jpg";
-import Nani5 from "../../static/nani5.jpeg";
+import { queryDoc } from '../../utils/firebase';
 
 export const CulturalTourDetails = () => {
 
@@ -15,20 +10,16 @@ export const CulturalTourDetails = () => {
     const [tour, setTour] = useState({})
 
     useEffect(() => {
-        const getData = () => {
+        const getData = async () => {
+            const doc = await queryDoc('places', id)
+            const docData = doc?.data()
             const obj = {
                 id: id,
-                lugar: `laborum`,
-                description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate dolore culpa explicabo unde magni illum assumenda, similique ipsum distinctio quos eos aspernatur laborum sint doloremque, facilis iusto cum perferendis?',
-                gallery: [
-                    Nani,
-                    Nani2,
-                    Nani3,
-                    Nani4,
-                    Nani5
-                ],
-                dateCreate: new Date().toString(),
-                autores: 'Lorem ipsum dolor sit'
+                lugar: docData.autor,
+                description: docData.description,
+                gallery: docData.images,
+                dateCreate: docData.date,
+                autores: docData.detecto
             }
             setTour(obj)
         }

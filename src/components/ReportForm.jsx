@@ -14,6 +14,7 @@ export const ReportForm = ({
   reload,
   setReload,
   toggleMap,
+  user,
 }) => {
   const [images, setImages] = useState(null);
   const [imagesUrl, setImagesUrl] = useState([]);
@@ -27,8 +28,9 @@ export const ReportForm = ({
       imagesUrl.length === 0 ||
       problem === "" ||
       images === null
-    )
+    ) {
       return toast.error("Debes Completar el formulario!");
+    }
 
     let data = {
       lat: locationCenter.lat,
@@ -36,6 +38,7 @@ export const ReportForm = ({
       images: imagesUrl,
       problem: problem,
       state: "pending",
+      reportingUser: user ? user : 'No user'
     };
 
     setImages(null);
@@ -52,7 +55,7 @@ export const ReportForm = ({
   const uploadImagesStorage = async () => {
     if (images === null) return toast.error("Debes subir primero tus images!");
 
-    const arrayImages = await toast.promise(
+    const arrayImages = toast.promise(
       UploadImages("reportImages", images),
       {
         loading: "Guardando...",
@@ -61,9 +64,7 @@ export const ReportForm = ({
       }
     );
 
-    if (arrayImages.length > 0) {
-      setImagesUrl(arrayImages);
-    }
+    setImagesUrl(await arrayImages);
   };
 
   return (
@@ -121,9 +122,7 @@ export const ReportForm = ({
         <div className="mt-4">
           <label
             htmlFor="imagen"
-            className={`flexlab font-medium ${
-              error && images === null && "text-red-700"
-            }`}
+            className={`flexlab font-medium ${error && images === null && "text-red-700"}`}
           >
             <FaCamera className="mr-2" />
             {"Foto"}
