@@ -3,23 +3,84 @@ import { useState } from "react";
 
 import { FaTimes } from "react-icons/fa";
 
+import { UploadImages } from "../../../utils/firebase";
+import { addDocs } from "../../../utils/firebase";
+import toast from "react-hot-toast";
+
 export const AddModal = ({ toggle }) => {
   const [create, setCreate] = useState({
     title: "",
     category: "",
-    images: [],
-    mainImage: "",
+    images: null,
+    mainImage: null,
     involved: "",
     description: "",
     articleContent: "",
+    date: "",
+    state: 'Pendiente'
   });
+  const [images, setImages] = useState([])
+  const [mainImage, setMainImage] = useState([])
+
+  const handleSubmit = async () => {
+
+    if (
+      create.title === "" ||
+      create.category === "" ||
+      create.involved === "" ||
+      create.description === "" ||
+      create.articleContent === "" ||
+      images.length === 0 ||
+      mainImage.length === 0 ||
+      create.date === "") return toast.error("Llena el formulario!"); toggle()
+
+    create.images = images
+    create.mainImage = mainImage[0]
+    await addDocs("articles", create);
+    toggle()
+
+  }
+
+  const saveImages = async (files, main) => {
+    console.log('files, main', files, main)
+    if (!main && !create.images) {
+      toast.error("Selecciona las imagenes!")
+      toggle()
+      return
+    }
+    if (main && !create.mainImage) {
+      toast.error("Selecciona las imagenes!")
+      toggle()
+      return
+    }
+
+    if (!main) {
+      const arrayImages = toast.promise(UploadImages("articleImages", files),
+        {
+          loading: "Guardando...",
+          success: "¡Imagenes guardadas!",
+          error: "¡Algo salió mal!",
+        }
+      );
+      setImages(await arrayImages)
+    } else {
+      const arrayImages = toast.promise(UploadImages("articleImages", files),
+        {
+          loading: "Guardando...",
+          success: "¡Imagenes guardadas!",
+          error: "¡Algo salió mal!",
+        }
+      );
+      setMainImage(await arrayImages)
+    }
+  }
 
   return (
     <div className="min-h-[calc(100vh-56px)] bg-neutral-800/50 w-screen absolute flex items-center justify-center z-10">
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="max-h-96 md:max-h-[450px] lg:max-h-[590px] overflow-auto w-[340px] md:w-[540px] lg:w-[720px] bg-white flex flex-col items-start justify-between py-4 px-6 rounded-lg "
+        className="max-h-96 md:max-h-[450px] lg:max-h-[700px] overflow-auto w-[340px] md:w-[540px] lg:w-[720px] bg-white flex flex-col items-start justify-between py-4 px-6 rounded-lg "
       >
         <div className="flex items-center justify-between w-full mb-4">
           <h1 className="text-xl font-bold">Crear artículo</h1>
@@ -28,7 +89,7 @@ export const AddModal = ({ toggle }) => {
           </button>
         </div>
 
-        <form className="w-full">
+        <div className="w-full flex flex-col">
           <div className="flex flex-col md:flex-row md:mx-auto mb-4 w-full md:justify-around">
             <div className="flex flex-col">
               <label
@@ -72,16 +133,25 @@ export const AddModal = ({ toggle }) => {
               >
                 Selección de imágenes
               </label>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                value={create.images}
-                onChange={(e) =>
-                  setCreate({ ...create, images: e.target.value })
-                }
-                className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400 md:w-[196px]"
-              />
+              <div className="flex flex-col">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  // value={create.images}
+                  onChange={(e) =>
+                    setCreate({ ...create, images: e.target.files })
+                  }
+                  className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400 md:w-[196px]"
+                />
+                <button
+                  type="button"
+                  onClick={() => saveImages(create.images, false)}
+                  className="bg-blue-500 mt-2 py-2 px-4 mx-auto rounded-md text-neutral-100 font-bold float-right"
+                >
+                  Subir
+                </button>
+              </div>
             </div>
             <div className="flex flex-col">
               <label
@@ -90,15 +160,24 @@ export const AddModal = ({ toggle }) => {
               >
                 Imagen principal
               </label>
-              <input
-                type="file"
-                accept="image/*"
-                value={create.mainImage}
-                onChange={(e) =>
-                  setCreate({ ...create, mainImage: e.target.value })
-                }
-                className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400 md:w-[196px]"
-              />
+              <div className="flex flex-col">
+                <input
+                  type="file"
+                  accept="image/*"
+                  // value={create.mainImage}
+                  onChange={(e) =>
+                    setCreate({ ...create, mainImage: e.target.files })
+                  }
+                  className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400 md:w-[196px]"
+                />
+                <button
+                  type="button"
+                  onClick={() => saveImages(create.mainImage, true)}
+                  className="bg-blue-500 mt-2 py-2 px-4 mx-auto rounded-md text-neutral-100 font-bold float-right"
+                >
+                  Subir
+                </button>
+              </div>
             </div>
           </div>
 
@@ -137,6 +216,25 @@ export const AddModal = ({ toggle }) => {
             </div>
           </div>
 
+          <div className="flex flex-col md:flex-row md:mx-auto mb-4 w-full md:justify-around">
+            <div className="flex flex-col">
+              <label
+                htmlFor="Fecha de creación"
+                className="text-green-500 font-bold text-md"
+              >
+                Fecha de creación
+              </label>
+              <input
+                type="date"
+                value={create.date}
+                onChange={(e) =>
+                  setCreate({ ...create, date: e.target.value })
+                }
+                className="border-[1px] mb-4 md:mb-0 rounded-md px-2 py-1 border-neutral-400"
+              />
+            </div>
+          </div>
+
           <div className="mb-4">
             <div className="flex flex-col">
               <label
@@ -155,14 +253,14 @@ export const AddModal = ({ toggle }) => {
               />
             </div>
           </div>
-
           <button
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
             className="bg-blue-500 py-2 px-4 mx-auto rounded-md text-neutral-100 font-bold float-right"
           >
             Agregar
           </button>
-        </form>
+        </div>
       </motion.div>
     </div>
   );

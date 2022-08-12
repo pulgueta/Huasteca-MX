@@ -2,12 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaBook, FaCalendarAlt, FaUsers } from 'react-icons/fa'
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
-import Nani from "../../static/nani.jpg";
-import Nani2 from "../../static/nani2.jpg";
-import Nani3 from "../../static/nani3.jpg";
-import Nani4 from "../../static/nani4.jpg";
-import Nani5 from "../../static/nani5.jpeg";
+import { queryDoc } from '../../utils/firebase';
 
 export const ArticleDetails = () => {
 
@@ -16,18 +11,16 @@ export const ArticleDetails = () => {
     const [article, setArticle] = useState({})
 
     useEffect(() => {
-        const getData = () => {
+        const getData = async () => {
+            const doc = await queryDoc('articles', id)
+            const docData = doc?.data()
             const obj = {
                 id: id,
-                title: `Mobiliario urbano - Asiento ${id}`,
-                description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti voluptate dolore culpa explicabo unde magni illum assumenda, similique ipsum distinctio quos eos aspernatur laborum sint doloremque, facilis iusto cum perferendis?',
-                gallery: [
-                    Nani,
-                    Nani2,
-                    Nani3,
-                    Nani4,
-                    Nani5
-                ]
+                title: `${docData.title} - ${docData.category}`,
+                description: docData.articleContent,
+                gallery: docData.images,
+                involved: docData.involved,
+                date: docData.date,
             }
             setArticle(obj)
         }
@@ -48,19 +41,19 @@ export const ArticleDetails = () => {
                     <div className='flex py-2 items-center md:px-2'>
                         <FaBook className='text-4xl' />
                         <p className='ml-2 md:ml-4'>
-                            Lorem ipsum dolor sit amet.
+                            Proyecto: {article.title}
                         </p>
                     </div>
                     <div className='flex py-2 items-center md:px-2'>
                         <FaCalendarAlt className='text-4xl' />
                         <p className='ml-2 md:ml-4'>
-                            Lorem ipsum dolor sit amet.
+                            {article.date}
                         </p>
                     </div>
                     <div className='flex py-2 items-center md:px-2'>
                         <FaUsers className='text-4xl' />
                         <p className='ml-2 md:ml-4'>
-                            Lorem ipsum dolor sit amet.
+                            {article.involved}
                         </p>
                     </div>
                 </div>
