@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowDown, FaBars, FaDoorOpen, FaTimes } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import { logOut } from "../../../utils/firebase";
+import { logOut, queryDoc } from "../../../utils/firebase";
 
 export const DashboardNavbar = () => {
+  const uid = localStorage.getItem("user") ?? "";
+
   const [isOpen, setIsOpen] = useState(false);
   const [subMenu, setSubMenu] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [userStatus, setUserStatus] = useState(null);
+
+  useEffect(() => {
+    const getDataProfile = async () => {
+      if (uid) {
+        const docUser = await queryDoc("users", uid);
+        const dataUser = docUser?.data();
+        setUserStatus(dataUser?.state);
+      }
+    };
+    getDataProfile();
+  }, [uid]);
 
   return (
     <>
@@ -36,29 +50,33 @@ export const DashboardNavbar = () => {
               Inicio
             </Link>
           </li>
-          <li className="md:ml-4 lg:ml-8">
-            <button
-              className="font-semibold md:text-sm lg:text-base text-neutral-100 flex items-center"
-              onClick={() => setMenu(!menu)}
-            >
-              Mis contenidos
-              <FaArrowDown
-                className={
-                  menu
-                    ? "ml-2 text-xs rotate-[-180deg] transition-all duration-300"
-                    : "ml-2 text-xs transition-all duration-300"
-                }
-              />
-            </button>
-          </li>
-          <li className="md:ml-4 lg:ml-8">
-            <Link
-              to="/perfil/reportar-problema"
-              className="font-semibold md:text-sm lg:text-base text-neutral-100"
-            >
-              Reporte de problemas
-            </Link>
-          </li>
+          {userStatus === "accepted" && (
+            <>
+              <li className="md:ml-4 lg:ml-8">
+                <button
+                  className="font-semibold md:text-sm lg:text-base text-neutral-100 flex items-center"
+                  onClick={() => setMenu(!menu)}
+                >
+                  Mis contenidos
+                  <FaArrowDown
+                    className={
+                      menu
+                        ? "ml-2 text-xs rotate-[-180deg] transition-all duration-300"
+                        : "ml-2 text-xs transition-all duration-300"
+                    }
+                  />
+                </button>
+              </li>
+              <li className="md:ml-4 lg:ml-8">
+                <Link
+                  to="/perfil/reportar-problema"
+                  className="font-semibold md:text-sm lg:text-base text-neutral-100"
+                >
+                  Reporte de problemas
+                </Link>
+              </li>
+            </>
+          )}
           <li className="md:ml-4 lg:ml-8">
             <button
               className="p-2 flex items-center bg-red-500 rounded-md font-semibold md:text-sm lg:text-base text-neutral-100"
@@ -115,14 +133,20 @@ export const DashboardNavbar = () => {
               <div className="my-4 w-full px-2 rounded-md text-neutral-100 bg-neutral-600 flex flex-col items-center justify-between h-full">
                 <Link
                   to="/perfil/monitor-articulos"
-                  onClick={() => {setSubMenu(!subMenu); setIsOpen(false)}}
+                  onClick={() => {
+                    setSubMenu(!subMenu);
+                    setIsOpen(false);
+                  }}
                   className="py-2"
                 >
                   Monitor de Artículos
                 </Link>
                 <Link
                   to="/perfil/articulos-aceptados"
-                  onClick={() => {setSubMenu(!subMenu); setIsOpen(false)}}
+                  onClick={() => {
+                    setSubMenu(!subMenu);
+                    setIsOpen(false);
+                  }}
                   className="py-2"
                 >
                   Lista de Artículos Aceptados
