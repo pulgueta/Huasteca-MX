@@ -50,7 +50,7 @@ export const DashboardNavbar = () => {
               Inicio
             </Link>
           </li>
-          {userStatus == "accepted" && (
+          {userStatus === "accepted" && (
             <>
               <li className="md:ml-4 lg:ml-8">
                 <button
