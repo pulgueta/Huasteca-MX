@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-target-blank */
-// import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import DataTable from 'react-data-table-component';
 import { useState } from 'react';
 import { ImageSlider } from './ImageSlider';

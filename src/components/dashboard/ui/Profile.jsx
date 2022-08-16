@@ -15,7 +15,7 @@ export const Profile = () => {
     email: "",
     phone: "",
     studiesLevel: "",
-    state: false,
+    state: "",
     file: undefined,
   });
   const [files, setFiles] = useState(null)
@@ -195,7 +195,7 @@ export const Profile = () => {
                 Estado:
               </label>
               <input
-                type="text"
+                type="disabled"
                 value={updateProfile.state === "pending" ? "Espera" : "Aceptado"}
                 className="rounded-md px-4 py-2"
                 disabled
