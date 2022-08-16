@@ -15,11 +15,11 @@ export const CulturalTourDetails = () => {
             const docData = doc?.data()
             const obj = {
                 id: id,
-                lugar: docData.autor,
+                lugar: docData.place,
                 description: docData.description,
                 gallery: docData.images,
                 dateCreate: docData.date,
-                autores: docData.detecto
+                autores: docData.detected
             }
             setTour(obj)
         }
@@ -27,9 +27,9 @@ export const CulturalTourDetails = () => {
     }, [id])
 
     return (
-        <div className='h-full bg-neutral-400 flex flex-col items-center jus md:px-10 md:justify-center md:h-screen md:py-20 lg:h-full'>
+        <div className='h-screen bg-neutral-400 flex flex-col items-center jus md:px-10 md:justify-center md:h-screen md:py-20 lg:h-full'>
             <motion.div className='w-screen h-full py-10 m-10 overflow-x-hidden md:py-0'>
-                <motion.div className='flex cursor-grab' drag={'x'} dragConstraints={{ right: 0, left: -1594 }}>
+                {/* <motion.div className='flex cursor-grab' drag={'x'} dragConstraints={{ right: 0, left: -1594 }}>
                     {tour.gallery && tour.gallery.map((item, i) => {
                         return (
                             <div key={i} className='h-[15rem] min-w-[25rem] p-4 md:h-96 md:min-w-[30rem] lg:min-w-[45rem]'>
@@ -37,7 +37,16 @@ export const CulturalTourDetails = () => {
                             </div>
                         )
                     })}
-                </motion.div>
+                </motion.div> */}
+                <div className='py-2 px-5'>
+                    <div className="flex w-full overflow-auto h-[15rem] md:h-96 px-5">
+                        {tour.gallery && tour.gallery.map((item, i) => {
+                            return (
+                                <img key={i} src={item} className={'w-full'} alt="FOto" />
+                            )
+                        })}
+                    </div>
+                </div>
                 <div className='bg-huasteca-brown mb-5 mx-4 rounded-xl shadow-lg shadow-huasteca-brown'>
                     <div className='flex flex-col p-4'>
                         <div className='flex text-xl md:text-2xl'>
