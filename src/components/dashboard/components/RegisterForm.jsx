@@ -17,9 +17,9 @@ export const RegisterForm = ({
 }) => {
   const [images, setImages] = useState(null);
   const [mainImage, setMainImage] = useState(null)
-  const [autor, setAutor] = useState('')
+  const [place, setPlace] = useState('')
   const [date, setDate] = useState('')
-  const [detecto, setDetecto] = useState('')
+  const [detected, setDetected] = useState('')
   const [description, setDescription] = useState('')
 
   const handleSubmit = async () => {
@@ -30,9 +30,9 @@ export const RegisterForm = ({
       mainImage === 0 ||
       images === null ||
       mainImage === null ||
-      autor === '' ||
+      place === '' ||
       date === '' ||
-      detecto === '' ||
+      detected === '' ||
       description === ''
     )
       return toast.error("Debes Completar el formulario!");
@@ -43,9 +43,9 @@ export const RegisterForm = ({
       images: images,
       mainImage: mainImage[0],
       state: "pending",
-      autor: autor,
+      place: place,
       date: date,
-      detecto: detecto,
+      detected: detected,
       description: description
     };
 
@@ -54,9 +54,9 @@ export const RegisterForm = ({
 
     setImages(null);
     setMainImage(null);
-    setAutor("");
+    setPlace("");
     setDate("");
-    setDetecto("");
+    setDetected("");
     setLocationCenter(null);
     setReload(!reload);
 
@@ -140,12 +140,12 @@ export const RegisterForm = ({
           />
         </label>
         <label htmlFor="coordenadas-lon" className="flexlab font-medium mt-4">
-          Título
+          Lugar
           <input
             type="text"
-            value={autor}
-            onChange={(e) => setAutor(e.target.value)}
-            placeholder="El pintor..."
+            value={place}
+            onChange={(e) => setPlace(e.target.value)}
+            placeholder="Lugar..."
             className="ml-2 w-full h-8 rounded-md px-2 text-sm font-medium outline-huasteca-brown"
           />
         </label>
@@ -169,9 +169,9 @@ export const RegisterForm = ({
             />
             <input
               type="text"
-              placeholder="Se detectó..."
-              value={detecto}
-              onChange={(e) => setDetecto(e.target.value)}
+              placeholder="Autor..."
+              value={detected}
+              onChange={(e) => setDetected(e.target.value)}
               className="w-full h-10 rounded-md text-sm px-2 bg-neutral-100 mt-2"
             />
           </div>

@@ -21,7 +21,7 @@ export const CulturalTour = () => {
       const data = docs
       const array = []
       data.forEach(element => {
-        if (element.data().state === 'Activo') {
+        if (element.data().state === 'active') {
           array.push({
             id: element.id,
             ...element.data()

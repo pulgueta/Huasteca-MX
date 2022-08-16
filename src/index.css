@@ -9,6 +9,12 @@
     background-color: #404040;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+    height: 10px;
+    background-color: #404040;
+}
+
 ::-webkit-scrollbar-button {
     background-color: #575757;
 }
