@@ -24,7 +24,10 @@ import {
   AcceptedArticles,
 } from "../components/dashboard/ui";
 
-import { MemberAdmin, NewPlace } from "../components/dashboard/ui/contentGenerator";
+import {
+  MemberAdmin,
+  NewPlace,
+} from "../components/dashboard/ui/contentGenerator";
 
 export const AppRouter = () => {
   const logged = localStorage.getItem("user") ?? "";
@@ -81,7 +84,7 @@ export const AppRouter = () => {
           }
         />
         <Route
-          path="/perfil/registrar-lugar"
+          path="/perfil/generador/registrar-lugar"
           element={
             <RequireAuth>
               <NewPlace />
@@ -89,7 +92,7 @@ export const AppRouter = () => {
           }
         />
         <Route
-          path="/perfil/administracion"
+          path="/perfil/generador/usuarios"
           element={
             <RequireAuth>
               <MemberAdmin />
