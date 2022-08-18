@@ -6,6 +6,7 @@ import { queryData } from "../../../utils/firebase";
 export const ArticleMonitor = () => {
 
   const [dataArticles, setDataArticles] = useState([])
+  const [pending, setPending] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -21,6 +22,7 @@ export const ArticleMonitor = () => {
         }
       });
       setDataArticles(array)
+      setPending(false)
     }
     getData()
   }, [])
@@ -28,9 +30,9 @@ export const ArticleMonitor = () => {
   return (
     <div div className="bg-neutral-300 min-h-[calc(100vh-56px)] flex items-start justify-center" >
       <div>
-        {dataArticles.length > 0 && (
-          <ArticleTable dataArticles={dataArticles} />
-        )}
+        {/* {dataArticles.length > 0 && ( */}
+        <ArticleTable dataArticles={dataArticles} pending={pending} />
+        {/* )} */}
       </div>
     </div >
   );

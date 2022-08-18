@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 export const AcceptedArticles = () => {
   const [modal, setModal] = useState(false);
   const [dataArticles, setDataArticles] = useState([])
+  const [pending, setPending] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -25,6 +26,7 @@ export const AcceptedArticles = () => {
         }
       });
       setDataArticles(array)
+      setPending(false)
     }
     getData()
   }, [])
@@ -124,6 +126,7 @@ export const AcceptedArticles = () => {
           customStyles={customStyles}
           columns={columns}
           data={dataArticles}
+          progressPending={pending}
         />
       </div>
     </div>

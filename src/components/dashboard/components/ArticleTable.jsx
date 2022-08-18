@@ -2,7 +2,7 @@ import DataTable from 'react-data-table-component';
 import { useState } from 'react';
 import { ImageSlider } from './ImageSlider';
 
-export const ArticleTable = ({ dataArticles }) => {
+export const ArticleTable = ({ dataArticles, pending }) => {
 
   const [disabled, setDisabled] = useState(true)
   const [selectedRows, setSelectedRows] = useState({})
@@ -76,14 +76,14 @@ export const ArticleTable = ({ dataArticles }) => {
     rows: {
       style: {
         minHeight: '60px', // override the row height
-        backgroundColor: '#e5e5e5',
+        // backgroundColor: '#e5e5e5',
         maxWidth: '1728px'
       },
     },
     headCells: {
       style: {
-        paddingLeft: '8px', // override the cell padding for head cells
-        paddingRight: '8px',
+        margingLeft: '8px', // override the cell padding for head cells
+        margingRight: '8px',
         backgroundColor: '#404040',
         color: 'white',
         maxWidth: '1728px'
@@ -91,8 +91,8 @@ export const ArticleTable = ({ dataArticles }) => {
     },
     cells: {
       style: {
-        paddingLeft: '8px', // override the cell padding for data cells
-        paddingRight: '8px',
+        margingLeft: '8px', // override the cell padding for head cells
+        margingRight: '8px',
         maxWidth: '1728px'
       },
     },
@@ -131,6 +131,8 @@ export const ArticleTable = ({ dataArticles }) => {
           data={dataArticles}
           selectableRows
           onSelectedRowsChange={(state) => handleChange(state)}
+          pagination
+          progressPending={pending}
         />
       </div>
     </>
