@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { queryData, updateData } from '../../../../utils/firebase';
+import { useNavigate } from 'react-router-dom';
 
 export const MemberAdmin = () => {
 
+  const navigate = useNavigate()
+  const rol = localStorage.getItem('rol') ?? ""
   const [data, setData] = useState([])
   const [dataPending, setDataPending] = useState([])
   const [disabled, setDisabled] = useState(true)
@@ -83,8 +86,13 @@ export const MemberAdmin = () => {
       setDataPending(arrayPending)
       setPending(false)
     }
-    getData()
-  }, [reload])
+
+    if (rol === 'generator') {
+      getData()
+    } else {
+      navigate('/perfil')
+    }
+  }, [navigate, reload, rol])
 
   const handleChange = (state) => {
     if (state.selectedRows.length > 0 && state.selectedRows.length < 2) {

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 // import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { Toaster } from "react-hot-toast";
 import { RegisterForm } from "../../components";
@@ -9,7 +10,11 @@ import { RegisterForm } from "../../components";
 let center = { lat: 7.067744476074094, lng: -73.85680068055541 };
 
 export const NewPlace = () => {
+
+  const navigate = useNavigate()
+  const rol = localStorage.getItem('rol') ?? ""
   const [toggleMap, setToggleMap] = useState(true);
+  const [loading, setLoading] = useState(false)
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -18,6 +23,14 @@ export const NewPlace = () => {
   const [locationCenter, setLocationCenter] = useState({});
   const [viewMarker, setViewMarker] = useState(false);
   const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    if (rol === 'generator') {
+      setLoading(true)
+    } else {
+      navigate('/perfil')
+    }
+  }, [navigate, rol])
 
   if (!isLoaded) {
     return <h1>Cargando mapa...</h1>;
@@ -44,7 +57,7 @@ export const NewPlace = () => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
-  return (
+  return loading && (
     <>
       <Toaster />
       <GoogleMap
