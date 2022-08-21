@@ -29,6 +29,13 @@ import {
   NewPlace,
 } from "../components/dashboard/ui/contentGenerator";
 
+import {
+  Cultural,
+  ProblemList,
+  UsersList,
+  Articles
+} from "../components/dashboard/ui/administrator";
+
 export const AppRouter = () => {
   const logged = localStorage.getItem("user") ?? "";
 
@@ -84,6 +91,14 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path="/perfil/generador/usuarios"
+          element={
+            <RequireAuth>
+              <MemberAdmin />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/perfil/generador/registrar-lugar"
           element={
             <RequireAuth>
@@ -91,11 +106,44 @@ export const AppRouter = () => {
             </RequireAuth>
           }
         />
+
         <Route
-          path="/perfil/generador/usuarios"
+          path="/perfil/admin/usuarios"
           element={
             <RequireAuth>
-              <MemberAdmin />
+              <UsersList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/admin/recorridos-culturales"
+          element={
+            <RequireAuth>
+              <Cultural />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/admin/reportar-problema"
+          element={
+            <RequireAuth>
+              <ProblemReport />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/admin/lista-problemas"
+          element={
+            <RequireAuth>
+              <ProblemList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/admin/articulos"
+          element={
+            <RequireAuth>
+              <Articles />
             </RequireAuth>
           }
         />

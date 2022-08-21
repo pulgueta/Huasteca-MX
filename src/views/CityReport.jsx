@@ -50,7 +50,7 @@ export const CityReport = () => {
     <>
       <Toaster />
       <GoogleMap
-        mapContainerClassName="w-full h-[150vh] md:h-[calc(100vh-160px)]"
+        mapContainerClassName="w-full h-[150vh] md:h-screen"
         zoom={18}
         center={
           locationCenter && locationCenter.lat && locationCenter.lng
