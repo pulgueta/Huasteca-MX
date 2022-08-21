@@ -1,35 +1,45 @@
 import { useState, useEffect } from "react";
 
-import DataTable from 'react-data-table-component';
+import DataTable from "react-data-table-component";
 
 import { AddModal } from "../components";
 import { queryData } from "../../../utils/firebase";
 
 import { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const AcceptedArticles = () => {
   const [modal, setModal] = useState(false);
-  const [dataArticles, setDataArticles] = useState([])
+  const [dataArticles, setDataArticles] = useState([]);
   const [pending, setPending] = useState(true);
+
+  const navigate = useNavigate();
+
+  const rol = localStorage.getItem("rol") ?? "";
 
   useEffect(() => {
     const getData = async () => {
-      const docs = await queryData('articles')
-      const data = docs
-      const array = []
-      data.forEach(element => {
-        if (element.data().state === 'Activo') {
+      const docs = await queryData("articles");
+      const data = docs;
+      const array = [];
+      data.forEach((element) => {
+        if (element.data().state === "Activo") {
           array.push({
             id: element.id,
-            ...element.data()
-          })
+            ...element.data(),
+          });
         }
       });
-      setDataArticles(array)
-      setPending(false)
+      setDataArticles(array);
+      setPending(false);
+    };
+
+    if (rol === "usuario") {
+      getData();
+    } else {
+      navigate("/perfil/generador/usuarios");
     }
-    getData()
-  }, [])
+  }, [navigate, rol]);
 
   const columns = [
     // {
@@ -41,43 +51,43 @@ export const AcceptedArticles = () => {
     //   button: true,
     // },
     {
-      name: '#Id',
-      selector: row => row.id,
+      name: "#Id",
+      selector: (row) => row.id,
       sortable: true,
     },
     {
-      name: 'Título',
-      selector: row => row.title,
+      name: "Título",
+      selector: (row) => row.title,
       sortable: true,
     },
     {
-      name: 'Categoria',
-      selector: row => row.category,
+      name: "Categoria",
+      selector: (row) => row.category,
       sortable: true,
     },
     {
-      name: 'Fecha',
-      selector: row => row.date,
+      name: "Fecha",
+      selector: (row) => row.date,
       sortable: true,
     },
     {
-      name: 'Contenido',
-      selector: row => row.articleContent,
+      name: "Contenido",
+      selector: (row) => row.articleContent,
       sortable: true,
     },
     {
-      name: 'Arquitecto/Ing.',
-      selector: row => row.involved,
+      name: "Arquitecto/Ing.",
+      selector: (row) => row.involved,
       sortable: true,
     },
     {
-      name: 'Descripción',
-      selector: row => row.description,
+      name: "Descripción",
+      selector: (row) => row.description,
       sortable: true,
     },
     {
-      name: 'Estado',
-      selector: row => row.state,
+      name: "Estado",
+      selector: (row) => row.state,
       sortable: true,
     },
   ];
@@ -85,25 +95,25 @@ export const AcceptedArticles = () => {
   const customStyles = {
     rows: {
       style: {
-        minHeight: '60px', // override the row height
-        backgroundColor: '#e5e5e5',
-        maxWidth: '1696px'
+        minHeight: "60px", // override the row height
+        backgroundColor: "#e5e5e5",
+        maxWidth: "1696px",
       },
     },
     headCells: {
       style: {
-        paddingLeft: '8px', // override the cell padding for head cells
-        paddingRight: '8px',
-        backgroundColor: '#404040',
-        color: 'white',
-        maxWidth: '1696px'
+        paddingLeft: "8px", // override the cell padding for head cells
+        paddingRight: "8px",
+        backgroundColor: "#404040",
+        color: "white",
+        maxWidth: "1696px",
       },
     },
     cells: {
       style: {
-        paddingLeft: '8px', // override the cell padding for data cells
-        paddingRight: '8px',
-        maxWidth: '1696px'
+        paddingLeft: "8px", // override the cell padding for data cells
+        paddingRight: "8px",
+        maxWidth: "1696px",
       },
     },
   };
