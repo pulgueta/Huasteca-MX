@@ -33,7 +33,8 @@ import {
   Cultural,
   ProblemList,
   UsersList,
-  Articles
+  Articles,
+  LocalitationProblems
 } from "../components/dashboard/ui/administrator";
 
 export const AppRouter = () => {
@@ -136,6 +137,14 @@ export const AppRouter = () => {
           element={
             <RequireAuth>
               <ProblemList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/admin/lista-problemas/:lat/:lng"
+          element={
+            <RequireAuth>
+              <LocalitationProblems />
             </RequireAuth>
           }
         />

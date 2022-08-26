@@ -122,6 +122,9 @@ export const MemberAdmin = () => {
     const oldData = selectedRows
     oldData.state = 'pendingAccepted'
     await updateData('users', oldData.id, oldData)
+    setDisabled(true)
+    setDisabledPending(true)
+    setSelectedRows(null)
     setReload(true)
   }
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { queryData, updateData } from "../../../../utils/firebase";
+import { queryData, updateData, DeleteDoc } from "../../../../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { FaTimes, FaCheck } from 'react-icons/fa'
 
 export const UsersList = () => {
   const navigate = useNavigate();
@@ -16,33 +17,18 @@ export const UsersList = () => {
 
   const acceptedColumns = [
     {
-      name: "#",
+      name: "Nombre",
       selector: (row) => `${row.name} ${row.dadSurname} ${row.momSurname}`,
       sortable: true,
     },
     {
-      name: "Nombre",
+      name: "Teléfono",
       selector: (row) => row.phone,
       sortable: true,
     },
     {
-      name: "Teléfono",
-      selector: (row) => row.studiesLevel,
-      sortable: true,
-    },
-    {
       name: "Estudios",
-      selector: (row) => row.invites,
-      sortable: true,
-    },
-    {
-      name: "Experiencia",
-      selector: (row) => row.invites,
-      sortable: true,
-    },
-    {
-      name: "Carta de motivos",
-      selector: (row) => row.invites,
+      selector: (row) => row.studiesLevel,
       sortable: true,
     },
     {
@@ -51,53 +37,71 @@ export const UsersList = () => {
       sortable: true,
     },
     {
-      name: "Editar rol",
-      selector: (row) => row.invites,
+      name: "Experiencia",
+      selector: (row) => row.experience + ' años',
       sortable: true,
+    },
+    {
+      name: "Editar rol",
+      sortable: false,
+      selector: "null",
+      cell: row => [
+        <select className="p-2" value={row.rol} onChange={async (e) => { await updateData('users', row.id, { rol: e.target.value }); setReload(true) }}>
+          <option value="" disabled>Sin rol</option>
+          <option value="Admin">Administrador</option>
+          <option value="Generator">Generador de contenido</option>
+          <option value="User">Usuario común</option>
+        </select>
+      ]
     },
   ];
 
   const pendingColumns = [
     {
-        name: "#",
-        selector: (row) => `${row.name} ${row.dadSurname} ${row.momSurname}`,
-        sortable: true,
-      },
-      {
-        name: "Nombre",
-        selector: (row) => row.phone,
-        sortable: true,
-      },
-      {
-        name: "Teléfono",
-        selector: (row) => row.studiesLevel,
-        sortable: true,
-      },
-      {
-        name: "Estudios",
-        selector: (row) => row.invites,
-        sortable: true,
-      },
-      {
-        name: "Experiencia",
-        selector: (row) => row.invites,
-        sortable: true,
-      },
-      {
-        name: "Carta de motivos",
-        selector: (row) => row.invites,
-        sortable: true,
-      },
-      {
-        name: "Invitado por",
-        selector: (row) => row.invites,
-        sortable: true,
-      },
-      {
-        name: "Acción",
-        selector: (row) => row.invites,
-        sortable: true,
-      },
+      name: "Nombre",
+      selector: (row) => `${row.name} ${row.dadSurname} ${row.momSurname}`,
+      sortable: true,
+    },
+    {
+      name: "Teléfono",
+      selector: (row) => row.phone,
+      sortable: true,
+    },
+    {
+      name: "Estudios",
+      selector: (row) => row.studiesLevel,
+      sortable: true,
+    },
+    {
+      name: "Invitado por",
+      selector: (row) => row.studiesLevel,
+      sortable: true,
+    },
+    {
+      name: "Experiencia",
+      selector: (row) => row.invites,
+      sortable: true,
+    },
+    {
+      name: "Acción",
+      sortable: false,
+      selector: "null",
+      cell: (row) => [
+        <i
+          key={row.id}
+          onClick={async () => { await updateData('users', row.id, { state: 'accepted', rol: '' }); setReload(true) }}
+          className="mr-5"
+        >
+          <FaCheck className='text-2xl' />
+        </i>,
+        <i
+          key={row.id}
+          onClick={async () => { await DeleteDoc('users', row.id); setReload(true) }}
+        >
+          <FaTimes className='text-2xl' />
+        </i>
+      ]
+    },
   ];
 
   const customStyles = {
@@ -137,7 +141,7 @@ export const UsersList = () => {
             id: element.id,
             ...element.data(),
           });
-        } else if (element.data().state === "pending") {
+        } else if (element.data().state === "pendingAccepted") {
           arrayPending.push({
             id: element.id,
             ...element.data(),
@@ -149,7 +153,7 @@ export const UsersList = () => {
       setPending(false);
     };
 
-    if (rol === "generator") {
+    if (rol === "Admin") {
       getData();
     } else {
       navigate("/perfil");
@@ -200,9 +204,8 @@ export const UsersList = () => {
           <div>
             <button
               disabled={disabled ? true : false}
-              className={`${
-                disabled ? "bg-slate-400" : "bg-huasteca-brown"
-              } h-full py-2 px-4 mx-10 rounded-md text-neutral-100 font-bold`}
+              className={`${disabled ? "bg-slate-400" : "bg-huasteca-brown"
+                } h-full py-2 px-4 mx-10 rounded-md text-neutral-100 font-bold`}
               onClick={handleViewData}
             >
               Carta motivo
@@ -229,18 +232,16 @@ export const UsersList = () => {
           <div>
             <button
               disabled={disabledPending ? true : false}
-              className={`${
-                disabledPending ? "bg-slate-400" : "bg-huasteca-brown"
-              } h-full py-2 px-4 ml-10 mr-5 rounded-md text-neutral-100 font-bold`}
+              className={`${disabledPending ? "bg-slate-400" : "bg-huasteca-brown"
+                } h-full py-2 px-4 ml-10 mr-5 rounded-md text-neutral-100 font-bold`}
               onClick={handleViewData}
             >
               Carta motivo
             </button>
             <button
               disabled={disabledPending ? true : false}
-              className={`${
-                disabledPending ? "bg-slate-400" : "bg-huasteca-brown"
-              } h-full py-2 px-4 rounded-md text-neutral-100 font-bold`}
+              className={`${disabledPending ? "bg-slate-400" : "bg-huasteca-brown"
+                } h-full py-2 px-4 rounded-md text-neutral-100 font-bold`}
               onClick={handleChangeState}
             >
               Estado
