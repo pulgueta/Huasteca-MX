@@ -16,7 +16,7 @@ import {
 
 import RequireAuth from "../components/RequireAuth";
 
-import { DashboardNavbar } from "../components/dashboard/components";
+import { UserNavbar } from "../components/dashboard/components";
 import {
   Profile,
   ArticleMonitor,
@@ -27,6 +27,8 @@ import {
 import {
   MemberAdmin,
   NewPlace,
+  Articles as GenArticles,
+  ModCultural,
 } from "../components/dashboard/ui/contentGenerator";
 
 import {
@@ -34,7 +36,7 @@ import {
   ProblemList,
   UsersList,
   Articles,
-  LocalitationProblems
+  LocalitationProblems,
 } from "../components/dashboard/ui/administrator";
 
 export const AppRouter = () => {
@@ -42,7 +44,9 @@ export const AppRouter = () => {
 
   return (
     <>
-      {!logged ? <Navbar /> : <DashboardNavbar />}
+      {!logged ? <Navbar /> : <UserNavbar />}
+      {/* <ModNavbar /> */}
+      {/* } */}
 
       <Routes>
         <Route index path="/" element={<Landing />} />
@@ -104,6 +108,30 @@ export const AppRouter = () => {
           element={
             <RequireAuth>
               <NewPlace />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/generador/reportar-problema"
+          element={
+            <RequireAuth>
+              <ProblemReport />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/generador/articulos"
+          element={
+            <RequireAuth>
+              <GenArticles />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/perfil/generador/recorridos-culturales"
+          element={
+            <RequireAuth>
+              <ModCultural />
             </RequireAuth>
           }
         />
