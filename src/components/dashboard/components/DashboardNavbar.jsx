@@ -4,7 +4,7 @@ import { FaArrowDown, FaBars, FaDoorOpen, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { logOut, queryDoc } from "../../../utils/firebase";
 
-export const DashboardNavbar = () => {
+export const UserNavbar = () => {
   const uid = localStorage.getItem("user") ?? "";
 
   const [isOpen, setIsOpen] = useState(false);
@@ -158,6 +158,150 @@ export const DashboardNavbar = () => {
             <Link
               to="/reporte-problemas"
               onClick={() => setSubMenu(!subMenu)}
+              className="font-semibold text-neutral-100"
+            >
+              Reporte de Problemas
+            </Link>
+          </li>
+          <li className="mb-4">
+            <button
+              className="p-2 bg-red-500 rounded-md font-semibold text-neutral-100"
+              onClick={logOut}
+            >
+              Cerrar sesión
+            </button>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
+
+export const ModNavbar = () => {
+  const uid = localStorage.getItem("user") ?? "";
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [subMenu, setSubMenu] = useState(false);
+  const [userStatus, setUserStatus] = useState(null);
+
+  useEffect(() => {
+    const getDataProfile = async () => {
+      if (uid) {
+        const docUser = await queryDoc("users", uid);
+        const dataUser = docUser?.data();
+        setUserStatus(dataUser?.state);
+      }
+    };
+    getDataProfile();
+  }, [uid]);
+
+  return (
+    <>
+      <nav className="bg-huasteca-gray h-14 flex items-center justify-between px-4 shadow-sm">
+        <Link
+          to="/perfil/generador/usuarios"
+          className="text-lg md:text-md font-bold text-neutral-100"
+        >
+          Colegio de Arquitectos
+        </Link>
+        {console.log(userStatus)}
+
+        {!isOpen ? (
+          <FaBars
+            className="text-neutral-100 cursor-pointer absolute right-4 md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        ) : (
+          <FaTimes
+            className="text-neutral-100 cursor-pointer absolute right-4 md:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        )}
+        <ul className="hidden md:flex md:items-center">
+          <li className="">
+            <Link
+              to="/perfil/generador/recorridos-culturales"
+              className="font-semibold md:text-sm lg:text-base text-neutral-100"
+            >
+              Recorridos culturales
+            </Link>
+          </li>
+
+          <li className="md:ml-4 lg:ml-8">
+            <Link
+              to="/perfil/generador/usuarios"
+              className="font-semibold md:text-sm lg:text-base text-neutral-100 flex items-center"
+            >
+              Miembros
+            </Link>
+          </li>
+          <li className="md:ml-4 lg:ml-8">
+            <Link
+              to="/perfil/generador/articulos"
+              className="font-semibold md:text-sm lg:text-base text-neutral-100 flex items-center"
+            >
+              Artículos
+            </Link>
+          </li>
+          <li className="md:ml-4 lg:ml-8">
+            <Link
+              to="/perfil/generador/reportar-problema"
+              className="font-semibold md:text-sm lg:text-base text-neutral-100"
+            >
+              Reporte de problemas
+            </Link>
+          </li>
+
+          <li className="md:ml-4 lg:ml-8">
+            <button
+              className="p-2 flex items-center bg-red-500 rounded-md font-semibold md:text-sm lg:text-base text-neutral-100"
+              onClick={logOut}
+            >
+              <FaDoorOpen className="md:hidden lg:block lg:mr-2" />
+              Cerrar sesión
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div className={isOpen ? "bg-huasteca-gray h-max w-screen" : "hidden"}>
+        <ul className="p-4 flex flex-col items-center text-center">
+          <li className="mb-4" onClick={() => setIsOpen(false)}>
+            <Link
+              to="/perfil"
+              onClick={() => setSubMenu(!subMenu)}
+              className="font-semibold text-neutral-100"
+            >
+              Inicio
+            </Link>
+          </li>
+          <li onClick={() => setSubMenu(!subMenu)} className="mb-4">
+            <Link
+              to="/perfil/generador/recorridos-culturales"
+              className="font-semibold text-neutral-100 flex items-center justify-around w-full mx-auto"
+            >
+              Recorridos culturales
+            </Link>
+          </li>
+          <li onClick={() => setSubMenu(!subMenu)} className="mb-4">
+            <Link
+              to="/perfil/generador/usuarios"
+              className="font-semibold text-neutral-100 flex items-center justify-around w-full mx-auto"
+            >
+              Miembros
+            </Link>
+          </li>
+          <li onClick={() => setSubMenu(!subMenu)} className="mb-4">
+            <Link
+              to="/perfil/generador/articulos"
+              className="font-semibold text-neutral-100 flex items-center justify-around w-full mx-auto"
+            >
+              Artículos
+            </Link>
+          </li>
+          <li onClick={() => setSubMenu(!subMenu)} className="mb-4">
+            <Link
+              to="/perfil/generador/reportar-problema"
               className="font-semibold text-neutral-100"
             >
               Reporte de Problemas
