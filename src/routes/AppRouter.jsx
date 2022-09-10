@@ -16,7 +16,11 @@ import {
 
 import RequireAuth from "../components/RequireAuth";
 
-import { UserNavbar } from "../components/dashboard/components";
+import {
+  AdminNavbar,
+  UserNavbar,
+  ModNavbar,
+} from "../components/dashboard/components";
 import {
   Profile,
   ArticleMonitor,
@@ -44,9 +48,12 @@ export const AppRouter = () => {
 
   return (
     <>
-      {!logged ? <Navbar /> : <UserNavbar />}
-      {/* <ModNavbar /> */}
-      {/* } */}
+      {!logged && <Navbar />}
+      {/* check from localstorage the role of the user and show its respective navbar */}
+      {localStorage.getItem("rol") === "Admin" && <AdminNavbar />}
+      {localStorage.getItem("rol") === "generator" && <ModNavbar />}
+      {(localStorage.getItem("rol") === "user" || localStorage.getItem("rol") === "usuario") && <UserNavbar />}
+
 
       <Routes>
         <Route index path="/" element={<Landing />} />
