@@ -30,6 +30,7 @@ export const SignUpForm = () => {
     email: "",
     username: "",
     password: "",
+    rol: ''
   });
   const [error, setError] = useState(false)
 
