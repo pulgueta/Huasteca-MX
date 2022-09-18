@@ -6,6 +6,7 @@ import { UpdateEmail } from "../../../utils/firebase/updateEmail";
 export const Profile = () => {
 
   const uid = localStorage.getItem('user') ?? ""
+  const rol = localStorage.getItem('rol') ?? ""
   const [edit, setEdit] = useState(false);
 
   const [updateProfile, setUpdateProfile] = useState({
@@ -35,12 +36,14 @@ export const Profile = () => {
           studiesLevel: dataUser.studiesLevel,
           state: dataUser.state,
           file: dataUser.file,
+          rol: dataUser.rol
         }
+        localStorage.setItem('rol', rol)
         setUpdateProfile(obj)
       }
     }
     getDataProfile()
-  }, [uid])
+  }, [rol, uid])
 
 
   const handleSubmit = async (e) => {

@@ -11,7 +11,8 @@ export const signIn = async (email, password) => {
 
 export const logOut = () => {
   signOut(auth).then(() => {
-    localStorage.removeItem('user')
+    localStorage.removeItem("user");
+    localStorage.removeItem("rol");
     window.location.reload();
   }).catch((error) => {
     // An error happened.

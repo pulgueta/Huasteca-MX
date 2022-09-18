@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { queryDoc } from "./utils/firebase/firebaseHelp";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY ?? "",
@@ -21,12 +22,17 @@ export const auth = getAuth(app);
 export const firestore = getFirestore(app);
 export const storage = getStorage(app);
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
     localStorage.setItem('user', uid)
+    const docUser = await queryDoc('users', uid)
+    const dataUser = docUser?.data()
+    if (dataUser) {
+      localStorage.setItem('rol', dataUser.rol)
+    }
     // ...
   } else {
     // User is signed out

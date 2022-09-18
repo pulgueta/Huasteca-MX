@@ -49,8 +49,8 @@ export const UsersList = () => {
         <select className="p-2" value={row.rol} onChange={async (e) => { await updateData('users', row.id, { rol: e.target.value }); setReload(true) }}>
           <option value="" disabled>Sin rol</option>
           <option value="Admin">Administrador</option>
-          <option value="Generator">Generador de contenido</option>
-          <option value="User">Usuario común</option>
+          <option value="generator">Generador de contenido</option>
+          <option value="usuario">Usuario común</option>
         </select>
       ]
     },
